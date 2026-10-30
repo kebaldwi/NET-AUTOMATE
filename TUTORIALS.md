@@ -45,6 +45,7 @@ You will find various examples within the various folders of this repository, wi
 
   ### Advanced Automation Use Cases
 
+  * [Advanced Templating](https://github.com/kebaldwi/DNAC-TEMPLATES/tree/master/TUTORIALS/AdvancedTemplating.md#advanced-templating) - This section will dive into advanced templating concepts and use cases within Catalyst Center
   * [Embedded Event Manager](https://github.com/kebaldwi/DNAC-TEMPLATES/tree/master/TUTORIALS/EEM.md#EEM) - This section will dive into EEM (Embedded Event Manager) Scripting and various use cases 
   * [System Variables](https://github.com/kebaldwi/DNAC-TEMPLATES/tree/master/TUTORIALS/SystemVariables.md#dna-center-system-variables) - This section explains Catalyst Centers System Variables
 
