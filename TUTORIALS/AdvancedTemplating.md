@@ -524,8 +524,8 @@ They **macros** are as follows
 ```
 [//]: # ({% endraw %})
 
-> [!WARNING]
-> :mega: Due to the dynamic nature, it is crucial that prior to enabling Autoconf globally, that any uplink or statically configured interfaces are configured with `access-session inherit disable autoconf` to prevent unintended automatic configurations on these interfaces.
+> **WARNING:**
+> Due to the dynamic nature, it is crucial that prior to enabling Autoconf globally, that any uplink or statically configured interfaces are configured with `access-session inherit disable autoconf` to prevent unintended automatic configurations on these interfaces.
 
 Next, we need to set up the macros, but we will make use of **Autoconf** and the **Templates** above. **Autoconf** is a solution that can be used to manage port configurations for data or voice VLAN, quality of service (QoS) parameters, storm control, and MAC-based port security on end devices that are deployed in the access layer of a network. Device classification is enabled when you enable the Autoconf feature using the `autoconf enable` command in global configuration mode. The device detection acts as an event trigger, which applies the appropriate automatic template to the interface. When the Autoconf feature is enabled using the autoconf enable command, the default Autoconf service policy is applied to all the interfaces. For more information about **[Autoconf](https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9400/software/release/16-12/configuration_guide/nmgmt/b_1612_nmgmt_9400_cg/configuring_autoconf.pdf)** or alternatively [Autoconf](../../CODE/DOCS/configuring_autoconf.pdf)
 
