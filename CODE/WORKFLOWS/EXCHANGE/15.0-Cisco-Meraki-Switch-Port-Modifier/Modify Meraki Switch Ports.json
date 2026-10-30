@@ -1,0 +1,3395 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0",
+    "name": "Modify Meraki Switch Ports",
+    "title": "Modify Meraki Switch Ports",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "variable_type_array_01JhSTW61I3ZU2IfL7dwQox83eFDzE1qUiA",
+        "properties": {
+          "value": [
+            "Change Description",
+            "Change Operational Status",
+            "Change VLANs",
+            "Change Access Policy"
+          ],
+          "scope": "local",
+          "name": "AccessPortOperationArray",
+          "type": "datatype.array",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZIQN1R5Z1TL1ZNJASvXtkMPAWuFb02j4U",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Operations",
+          "type": "datatype.string",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZIVCHNNS4A81TghF2QNzypLdCONjLkQju",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.boolean",
+        "properties": {
+          "value": false,
+          "scope": "local",
+          "name": "AllowedVLAN-Boolean",
+          "type": "datatype.boolean",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZIVO1D7W3TA64hfjMk6RYZAQdJYwYMaVk",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Input - Description",
+          "type": "datatype.string",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZI1LPFPE0824eralf9zlgbVzNztuyQXYy",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "Success",
+          "scope": "output",
+          "name": "Output - Status",
+          "type": "datatype.string",
+          "description": "Workflow execution status",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZFAWAKW7G3X2K5I3EabR5eNfJtdRzcU4D",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "Output - Update Results",
+          "type": "datatype.string",
+          "description": "Summary of the port modification results",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZFAWAKW7LMI5kIAkmsg1bQ8Gw1i1jLt96",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Input - DATA VLAN",
+          "type": "datatype.string",
+          "description": "The VLAN of the switch port",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZFAWAKW658C6yxvlQwA7hp5EqQkWMHnxe",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "variable_type_array_01JhSTW61I3ZU2IfL7dwQox83eFDzE1qUiA",
+        "properties": {
+          "value": [],
+          "scope": "local",
+          "name": "Input - Selected Ports",
+          "type": "datatype.array",
+          "description": "List of port IDs to modify",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZFAWAKW5KFE0E6tVumDc93F0bT7MVltf2",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Input - Allowed VLANs",
+          "type": "datatype.string",
+          "description": "The VLANs allowed on the switch port (trunk only)",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZFAWAKW6BDX505kzpoFc0PzlcgT1svDEP",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "variable_type_array_01JhSTW61I3ZU2IfL7dwQox83eFDzE1qUiA",
+        "properties": {
+          "value": [
+            "Open",
+            "Custom access policy"
+          ],
+          "scope": "local",
+          "name": "AccessPolicyTypeArray",
+          "type": "datatype.array",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZIXSLQYCL4H3NUiIz7BUpyalAB43WNwgV",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "variable_type_array_01JhSTW61I3ZU2IfL7dwQox83eFDzE1qUiA",
+        "properties": {
+          "value": [
+            "Change Description",
+            "Change Operational Status",
+            "Change VLANs"
+          ],
+          "scope": "local",
+          "name": "TrunkPortOperationArray",
+          "type": "datatype.array",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZIVBIJBEQC14PFvioQlLx5m9Ed2MJ5BYY",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Input - PoE Enabled",
+          "type": "datatype.string",
+          "description": "The PoE status of the switch port",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZFAWAKW6N6B4yCfAyiIT6RZjH7Oe9QsGj",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Input - VOICE VLAN",
+          "type": "datatype.string",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZI1L3SN0L3O3DQKXEAsxDsBCAxvJJD9xg",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "variable_type_array_01JhSTW61I3ZU2IfL7dwQox83eFDzE1qUiA",
+        "properties": {
+          "value": [
+            "ENABLE",
+            "DISABLE"
+          ],
+          "scope": "local",
+          "name": "adminStatusArray",
+          "type": "datatype.array",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZIRA7RO1MHP6LfClGNqU91wkBYBmlIXHv",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "variable_type_array_01JhSTW61I3ZU2IfL7dwQox83eFDzE1qUiA",
+        "properties": {
+          "value": [
+            "Access",
+            "Trunk"
+          ],
+          "scope": "local",
+          "name": "portTypeArray",
+          "type": "datatype.array",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZIV5QA3YXZD5F7ihzSHBkEHubchWyt15v",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.boolean",
+        "properties": {
+          "value": false,
+          "scope": "local",
+          "name": "VoiceVLAN-Boolean",
+          "type": "datatype.boolean",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZIVNKP0ITW94X4XBfzfoRsomLIlrLQguK",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "true",
+          "scope": "local",
+          "name": "Input - Admin Status",
+          "type": "datatype.string",
+          "description": "The admin status of the switch port",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZFAWAKW6Y4T20NyPE8pbJPDyOGATq37Ky",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "variable_type_array_01JhSTW61I3ZU2IfL7dwQox83eFDzE1qUiA",
+        "properties": {
+          "value": [],
+          "scope": "local",
+          "name": "policyNameArray",
+          "type": "datatype.array",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZISV9FCWFIO2ly5AyJMGzyFt3ymy71REi",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Input - Access Policy Number",
+          "type": "datatype.string",
+          "description": "The number of a custom access policy",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZFAWAKW6H4W0WhADRExsCXeH0lN1zTON1",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.boolean",
+        "properties": {
+          "value": false,
+          "scope": "local",
+          "name": "DataVLAN-Boolean",
+          "type": "datatype.boolean",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZIVNDQO48CV5EaiAQ6gNvxQ8eCmnQMjYP",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "variable_type_array_01JhSTW61I3ZU2IfL7dwQox83eFDzE1qUiA",
+        "properties": {
+          "value": [],
+          "scope": "local",
+          "name": "portNameArray",
+          "type": "datatype.array",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZHX7UWC03GG4Px40Vzhzf54ln3RLE6R4D",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "access",
+          "scope": "local",
+          "name": "Input - Port Type",
+          "type": "datatype.string",
+          "description": "The type of the switch port ('trunk' or 'access')",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZFAWAKW5QGQ37U5VfY3NsAzj9yNnOk9PN",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "TEST",
+          "type": "datatype.string",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZIXDA63RWKW6NMFmY3rgJU8n5F4XIvtmQ",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "accessPolicyType",
+          "type": "datatype.string",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02ZIWRYKXPGX237jQvzQsDV5OS6VvVnZeF6",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "is_atomic": false
+      },
+      "delete_workflow_instance": false,
+      "description": "Allows a user to choose an organization, network, and switch, verify cloud management mode, and modify selected switch ports (access policy, trunk settings, VLANs, PoE, and admin status).",
+      "display_name": "Modify Meraki Switch Ports",
+      "runtime_user": {
+        "override_target_runtime_user": false,
+        "runtime_user_type": "02NGZDAN32JX67LBUnFgXCkyh9kZXCsfxdY",
+        "specify_on_workflow_start": false,
+        "target_default": true
+      },
+      "target": {
+        "target_type": "meraki.endpoint",
+        "target_id": "definition_target_02YLR8ZFIXRC45RODbqQ3jlhVKa5EJkpjCI",
+        "execute_on_workflow_target": true
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_02ZIQNAM7RHR12DFUDnwpARLh8y9pVIBgdI",
+        "name": "Create Prompt",
+        "title": "Port Type Modification Prompt",
+        "type": "task.prompt_request",
+        "base_type": "activity",
+        "properties": {
+          "assignee_roles": [
+            "admin"
+          ],
+          "assignees": [
+            "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$"
+          ],
+          "continue_on_failure": false,
+          "description": "Port Type Modification Prompt Request",
+          "display_name": "Port Type Modification Prompt",
+          "expiration_date": {
+            "is_relative_time": true,
+            "relative_time": {
+              "duration": 72,
+              "time_units": "hours"
+            }
+          },
+          "form_elements": [
+            {
+              "allow_multiselect": false,
+              "form_element": "select",
+              "form_label": "Port Type",
+              "form_option_label_key": "",
+              "form_source_array": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIV5QA3YXZD5F7ihzSHBkEHubchWyt15v$"
+            }
+          ],
+          "prompt_body": "Choose the   Port Type we are updating?",
+          "prompt_title": "Port Type?",
+          "skip_execution": false,
+          "task_owner": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+          "task_requestor": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+          "wait_for_prompt_response": true
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02ZIV6UUNY54Q17kTcucjK6vJQmaMSpqltZ",
+        "name": "Condition Block",
+        "title": "Port Type Selection Block",
+        "type": "logic.if_else",
+        "base_type": "activity",
+        "properties": {
+          "conditions": [],
+          "continue_on_failure": false,
+          "description": "If-Else condition block",
+          "display_name": "Port Type Selection Block",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_02ZIV6UW9N16Y0kaLBHAr4XHyK9vWlImroI",
+            "name": "Condition Branch",
+            "title": "Access Condition",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_02ZIQNAM7RHR12DFUDnwpARLh8y9pVIBgdI.output.prompt_response.Port Type$",
+                "operator": "eq",
+                "right_operand": "Access"
+              },
+              "continue_on_failure": false,
+              "display_name": "Access Condition",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_02ZIV35U7207E0IrUNp3UyB1MclyImt60Cc",
+                "name": "Create Prompt",
+                "title": "Operation Prompt",
+                "type": "task.prompt_request",
+                "base_type": "activity",
+                "properties": {
+                  "assignee_roles": [
+                    "admin"
+                  ],
+                  "assignees": [
+                    "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$"
+                  ],
+                  "continue_on_failure": false,
+                  "description": "Operation Selection Prompt Request",
+                  "display_name": "Operation Prompt",
+                  "expiration_date": {
+                    "is_relative_time": true,
+                    "relative_time": {
+                      "duration": 72,
+                      "time_units": "hours"
+                    }
+                  },
+                  "form_elements": [
+                    {
+                      "allow_multiselect": true,
+                      "form_element": "select",
+                      "form_label": "Operations",
+                      "form_option_label_key": "",
+                      "form_source_array": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIQN1R5Z1TL1ZNJASvXtkMPAWuFb02j4U$"
+                    }
+                  ],
+                  "prompt_body": "Choose the Operation we are doing?",
+                  "prompt_title": "Which Operation?",
+                  "skip_execution": false,
+                  "task_owner": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                  "task_requestor": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                  "wait_for_prompt_response": true
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02ZIR1QLOTHGP5vSMle5cUrKYiRLbRSIUOA",
+                "name": "Operation Array to Delimited String",
+                "title": "Operation Array to Delimited String",
+                "type": "workflow.atomic_workflow",
+                "base_type": "subworkflow",
+                "properties": {
+                  "atomic": {
+                    "atomic_group": "Core",
+                    "atomic_subgroup": "String Operations"
+                  },
+                  "continue_on_failure": false,
+                  "description": "Convert a JSON array of strings into a single delimited string.\n\nInputs:\n- JSON String Array: JSON array containing only string values.\n- String Delimiter: delimiter inserted between elements; defaults to a comma.\n\nOutputs:\n- Delimited Output String: the joined string result.\n- Result: mirrors the joined string result on success.\n- Status Code, Status Message, Error Message: standard workflow status outputs.\n\nBehavior:\n- Validates that the input is valid JSON.\n- Requires the decoded JSON value to be an array of strings.\n- Returns an empty string successfully when the input array is empty.\n- Returns a failed completion for malformed JSON, non-array input, or non-string array members.",
+                  "display_name": "Operation Array to Delimited String",
+                  "input": {
+                    "variable_workflow_02UL94O6YP8544rbYAOPK8MZ6rHYw1q9KFG": "$activity.definition_activity_02ZIV35U7207E0IrUNp3UyB1MclyImt60Cc.output.prompt_response.Operations$",
+                    "variable_workflow_02UL94O6YPG4W438YWfN6MvWd9DAulMVatz": ","
+                  },
+                  "runtime_user": {
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "target": {
+                    "no_target": true
+                  },
+                  "workflow_id": "definition_workflow_02UL94O6YOKWQ7YkeQffWC9EczDKefSDl71",
+                  "workflow_name": "JSON String Array to Delimited String"
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02ZIVCP0A858V3nFSGnCkmnk7XMR8L2ArUl",
+                "name": "Set Variables",
+                "title": "Set Operations",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "description": "Set Operations",
+                  "display_name": "Set Operations",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIVCHNNS4A81TghF2QNzypLdCONjLkQju$",
+                      "variable_value_new": "$activity.definition_activity_02ZIR1QLOTHGP5vSMle5cUrKYiRLbRSIUOA.output.variable_workflow_02UL94O6YPNNH6sVD54nhvjkyPGJxLyJALV$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZFAWAKW5QGQ37U5VfY3NsAzj9yNnOk9PN$",
+                      "variable_value_new": "access"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          },
+          {
+            "unique_name": "definition_activity_02ZIV8IL0GUMS4t2H4kYIcBvgsP7eWy2Mgj",
+            "name": "Condition Branch",
+            "title": "Trunk Condition",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_02ZIQNAM7RHR12DFUDnwpARLh8y9pVIBgdI.output.prompt_response.Port Type$",
+                "operator": "eq",
+                "right_operand": "Trunk"
+              },
+              "continue_on_failure": false,
+              "display_name": "Trunk Condition",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_02ZIV8IL2NXU70S4GGjOhIB4AZh5sMtLhQL",
+                "name": "Create Prompt",
+                "title": "Operation Prompt",
+                "type": "task.prompt_request",
+                "base_type": "activity",
+                "properties": {
+                  "assignee_roles": [
+                    "admin"
+                  ],
+                  "assignees": [
+                    "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$"
+                  ],
+                  "continue_on_failure": false,
+                  "description": "Operation Selection Prompt Request",
+                  "display_name": "Operation Prompt",
+                  "expiration_date": {
+                    "is_relative_time": true,
+                    "relative_time": {
+                      "duration": 72,
+                      "time_units": "hours"
+                    }
+                  },
+                  "form_elements": [
+                    {
+                      "allow_multiselect": true,
+                      "form_element": "select",
+                      "form_label": "Operations",
+                      "form_option_label_key": "",
+                      "form_source_array": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIVBIJBEQC14PFvioQlLx5m9Ed2MJ5BYY$"
+                    }
+                  ],
+                  "prompt_body": "Choose the Operation we are doing?",
+                  "prompt_title": "Which Operation?",
+                  "skip_execution": false,
+                  "task_owner": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                  "task_requestor": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                  "wait_for_prompt_response": true
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02ZIV8IL9VGVN6c8HR9VPvnwCRBeYcUI5ET",
+                "name": "Operation Array to Delimited String",
+                "title": "Operation Array to Delimited String",
+                "type": "workflow.atomic_workflow",
+                "base_type": "subworkflow",
+                "properties": {
+                  "atomic": {
+                    "atomic_group": "Core",
+                    "atomic_subgroup": "String Operations"
+                  },
+                  "continue_on_failure": false,
+                  "description": "Convert a JSON array of strings into a single delimited string.\n\nInputs:\n- JSON String Array: JSON array containing only string values.\n- String Delimiter: delimiter inserted between elements; defaults to a comma.\n\nOutputs:\n- Delimited Output String: the joined string result.\n- Result: mirrors the joined string result on success.\n- Status Code, Status Message, Error Message: standard workflow status outputs.\n\nBehavior:\n- Validates that the input is valid JSON.\n- Requires the decoded JSON value to be an array of strings.\n- Returns an empty string successfully when the input array is empty.\n- Returns a failed completion for malformed JSON, non-array input, or non-string array members.",
+                  "display_name": "Operation Array to Delimited String",
+                  "input": {
+                    "variable_workflow_02UL94O6YP8544rbYAOPK8MZ6rHYw1q9KFG": "$activity.definition_activity_02ZIV8IL2NXU70S4GGjOhIB4AZh5sMtLhQL.output.prompt_response.Operations$",
+                    "variable_workflow_02UL94O6YPG4W438YWfN6MvWd9DAulMVatz": ","
+                  },
+                  "runtime_user": {
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "target": {
+                    "no_target": true
+                  },
+                  "workflow_id": "definition_workflow_02UL94O6YOKWQ7YkeQffWC9EczDKefSDl71",
+                  "workflow_name": "JSON String Array to Delimited String"
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02ZIVDAOAMAN81SbKMHmiBBVhaQCeWPIG8p",
+                "name": "Set Variables",
+                "title": "Set Operations",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "description": "Set Operations",
+                  "display_name": "Set Operations",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIVCHNNS4A81TghF2QNzypLdCONjLkQju$",
+                      "variable_value_new": "$activity.definition_activity_02ZIV8IL9VGVN6c8HR9VPvnwCRBeYcUI5ET.output.variable_workflow_02UL94O6YPNNH6sVD54nhvjkyPGJxLyJALV$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZFAWAKW5QGQ37U5VfY3NsAzj9yNnOk9PN$",
+                      "variable_value_new": "trunk"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIWRYKXPGX237jQvzQsDV5OS6VvVnZeF6$",
+                      "variable_value_new": "Open"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_02ZFFJZNLSJS97TjtF37Z2vpC543CbbZbIm",
+        "name": "Meraki Choose Organization",
+        "title": "Meraki Choose Organization",
+        "type": "workflow.sub_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "atomic": {},
+          "description": "Meraki Select Organization\n",
+          "display_name": "Meraki Choose Organization",
+          "runtime_user": {
+            "target_default": true
+          },
+          "target": {
+            "execute_on_this_target": true,
+            "target_id": "definition_target_02YLR8ZFIXRC45RODbqQ3jlhVKa5EJkpjCI",
+            "target_type": "meraki.endpoint"
+          },
+          "workflow_id": "definition_workflow_02ZFESAYI8M3W76oM7GOSSLAlON45p6ALHy",
+          "workflow_name": "Meraki Choose Organization"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02ZFG1N51VA9O5iLfU774PTYBNgASxI2xoo",
+        "name": "Meraki Choose Network",
+        "title": "Meraki Choose Network",
+        "type": "workflow.sub_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "atomic": {},
+          "continue_on_failure": false,
+          "description": "Meraki Select Network\n",
+          "display_name": "Meraki Choose Network",
+          "input": {
+            "variable_workflow_02ZFFYZFFE2SO4Q6xptRqB4IcnAyuJ7Cvok": "$activity.definition_activity_02ZFFJZNLSJS97TjtF37Z2vpC543CbbZbIm.output.variable_workflow_02ZFFGHM3B3M14yUB3CzI2x1XJBBabiioId$"
+          },
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "execute_on_this_target": true,
+            "target_id": "definition_target_02YLR8ZFIXRC45RODbqQ3jlhVKa5EJkpjCI",
+            "target_type": "meraki.endpoint"
+          },
+          "workflow_id": "definition_workflow_02ZFFYZEWBVTL4nt4Qp9du17wqYTQp2elPD",
+          "workflow_name": "Meraki Choose Network"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02ZFHRNQB3U291TjtnZjWMaGsmlAYDNxSuB",
+        "name": "Meraki Choose Device",
+        "title": "Meraki Choose Device",
+        "type": "workflow.sub_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "atomic": {},
+          "continue_on_failure": false,
+          "description": "Meraki Device Config Importer\n\nThis imports a config from Meraki\nand prepares it.\n\nCurrently requires API Key and NFO",
+          "display_name": "Meraki Choose Device",
+          "input": {
+            "variable_workflow_02ZFG5332DR7D0oDBKUOWcuhHmV5pGjGv4k": "$activity.definition_activity_02ZFFJZNLSJS97TjtF37Z2vpC543CbbZbIm.output.variable_workflow_02ZFFGHM3B3M14yUB3CzI2x1XJBBabiioId$"
+          },
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "execute_on_this_target": true,
+            "target_id": "definition_target_02YLR8ZFIXRC45RODbqQ3jlhVKa5EJkpjCI",
+            "target_type": "meraki.endpoint"
+          },
+          "workflow_id": "definition_workflow_02ZFG532FNFRD3SSKDxPQdzDCphhEMvLZ0U",
+          "workflow_name": "Meraki Choose Device"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02ZFAWAKW8GOW51SvvXggOtJhkj62NYMW0U",
+        "name": "Get Device",
+        "title": "Get Device",
+        "type": "workflow.atomic_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": true,
+          "description": "**Cisco Meraki - Devices - Get Device**\n\nReturn detailed information about a specific Meraki device within the network.\n\n**Target:** A Meraki Endpoint using HTTPS \"api.meraki.com\" port 443 and no path.\n\n**Account Key:** Meraki User API Key. API Key can be generated from Meraki Dashboard -> User Profile -> API Access.\n\nSteps:\n[] Sends Get Device request to Meraki\n[] Check if the request was successful:\n[]> If it was, attempt to extract the results and set the output variables\n[]> If it wasn't, return the error and marks the workflow as failed.\n\nNOTE: Empty attributes in the request are removed from the payload before sending to Meraki. \n\nhttps://developer.cisco.com/meraki/api-v1/get-device/",
+          "display_name": "Get Device",
+          "input": {
+            "variable_workflow_02LA3KX0XRGFU3QzA9F6YCXnYaLxB7wtsM7": "$activity.definition_activity_02ZFHRNQB3U291TjtnZjWMaGsmlAYDNxSuB.output.variable_workflow_02ZFHNJ7SQDSM1ojSPnNl0UkLriDMMZINIS$"
+          },
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_02YLR8ZFIXRC45RODbqQ3jlhVKa5EJkpjCI",
+            "target_type": "meraki.endpoint"
+          },
+          "workflow_id": "definition_workflow_02LA3KX0H7UMQ3yyicn2qcUy4gWmF7FBxQq",
+          "workflow_name": "Meraki - Get Device"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02ZFIFL2SCZWU7LggAh3UVpkWr0UIGGJbhs",
+        "name": "Meraki - Get Organization Inventory Device",
+        "title": "Meraki - Get Organization Inventory Device",
+        "type": "workflow.atomic_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "atomic": {
+            "atomic_group": "Cisco Meraki",
+            "atomic_subgroup": "Organizations"
+          },
+          "continue_on_failure": false,
+          "description": "The endpoint is used to retrieve detailed information about a specific device within an organization's inventory. This allows administrators to view device status, configuration, and other relevant details.",
+          "display_name": "Meraki - Get Organization Inventory Device",
+          "input": {
+            "variable_workflow_02LUCBAAJKB0O355uDEoYuZ3hUvD71V82eO": "$activity.definition_activity_02ZFFJZNLSJS97TjtF37Z2vpC543CbbZbIm.output.variable_workflow_02ZFFGHM3B3M14yUB3CzI2x1XJBBabiioId$",
+            "variable_workflow_02LUCBAAJKBSG1bLSX6at9ktvMHdIUNcAHn": "$activity.definition_activity_02ZFHRNQB3U291TjtnZjWMaGsmlAYDNxSuB.output.variable_workflow_02ZFHNJ7SQDSM1ojSPnNl0UkLriDMMZINIS$"
+          },
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_02YLR8ZFIXRC45RODbqQ3jlhVKa5EJkpjCI",
+            "target_type": "meraki.endpoint"
+          },
+          "workflow_id": "definition_workflow_02LUCBAAJK75S1wQ80YFc0rVE0JCyHL9SBK",
+          "workflow_name": "Meraki - Get Organization Inventory Device"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02ZHWZ4K010ZF6WVF5yjbfyidf5uCqazDi9",
+        "name": "Meraki - Get Device Switch Ports",
+        "title": "Meraki - Get Device Switch Ports",
+        "type": "workflow.atomic_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "atomic": {
+            "atomic_group": "Cisco Meraki",
+            "atomic_subgroup": "Switch"
+          },
+          "continue_on_failure": false,
+          "description": "Retrieve switch port information for a specific Meraki device within a given organization.",
+          "display_name": "Meraki - Get Device Switch Ports",
+          "input": {
+            "variable_workflow_02LLUYO8DV17A22l9lor4ttg6i8GspwoAVk": "$activity.definition_activity_02ZFHRNQB3U291TjtnZjWMaGsmlAYDNxSuB.output.variable_workflow_02ZFHNJ7SQDSM1ojSPnNl0UkLriDMMZINIS$"
+          },
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "target_type": "meraki.endpoint",
+            "use_workflow_target": true
+          },
+          "workflow_id": "definition_workflow_02LLUYO87CIIF2MYkTzJpsPsYYOXZ5MUPA1",
+          "workflow_name": "Meraki - Get Device Switch Ports"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02ZHXXZ195X8T7Ei1yezMzukfIpVsMHk4BR",
+        "name": "JSONPath Query",
+        "title": "Parse Switch Ports",
+        "type": "corejava.jsonpathquery",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "description": "JSONPath Query to get value in JSON",
+          "display_name": "Parse Switch Ports",
+          "input_json": "$activity.definition_activity_02ZHWZ4K010ZF6WVF5yjbfyidf5uCqazDi9.output.variable_workflow_02LLUYO8DUAUK5cdNbWcLbEsrzMeC5jahEc$",
+          "jsonpath_queries": [
+            {
+              "default_value": "",
+              "jsonpath_query": "$[?(@.interface.name && @.interface.name != 'StackPort1/1' && @.interface.name != 'StackPort1/2' && @.interface.name != null)].interface.name",
+              "jsonpath_query_name": "InterfacePorts",
+              "jsonpath_query_type": "array",
+              "set_default_value": false,
+              "zdate_type_format": "yyyy-MM-dd'T'HH:mm:ssZ"
+            }
+          ],
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02ZHX78IPOBZ57UITC0GFgB9XdyGMaotptz",
+        "name": "Set Variables",
+        "title": "Set Switch Ports",
+        "type": "core.set_multiple_variables",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "description": "Set Variables",
+          "display_name": "Set Switch Ports",
+          "skip_execution": false,
+          "variables_to_update": [
+            {
+              "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZHX7UWC03GG4Px40Vzhzf54ln3RLE6R4D$",
+              "variable_value_new": "$activity.definition_activity_02ZHXXZ195X8T7Ei1yezMzukfIpVsMHk4BR.output.jsonpath_queries.InterfacePorts$"
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02ZHY5KD53ELN3GZymwbmbrHGq0xgcZbMRi",
+        "name": "Create Prompt",
+        "title": "Choose Ports Prompt",
+        "type": "task.prompt_request",
+        "base_type": "activity",
+        "properties": {
+          "assignee_roles": [
+            "admin"
+          ],
+          "assignees": [
+            "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$"
+          ],
+          "continue_on_failure": false,
+          "description": "Create Prompt Request",
+          "display_name": "Choose Ports Prompt",
+          "expiration_date": {
+            "is_relative_time": true,
+            "relative_time": {
+              "duration": 72,
+              "time_units": "hours"
+            }
+          },
+          "form_elements": [
+            {
+              "allow_multiselect": true,
+              "form_element": "select",
+              "form_label": "Selected Ports",
+              "form_option_label_key": "",
+              "form_source_array": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZHX7UWC03GG4Px40Vzhzf54ln3RLE6R4D$"
+            }
+          ],
+          "prompt_body": "Select Ports",
+          "prompt_title": "Choose Ports",
+          "skip_execution": false,
+          "task_owner": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+          "task_requestor": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+          "wait_for_prompt_response": true
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02ZIQUJ2YY6HQ6QbPeytGPMnSNTKNOxTzih",
+        "name": "Group",
+        "title": "Operations Group",
+        "type": "logic.group",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "description": "Operations Group",
+          "display_as_suggestion": false,
+          "display_name": "Operations Group",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "actions": [
+          {
+            "unique_name": "definition_activity_02ZIQUWSE0U3P4idTbb5VFTmdPkY9p3X0iq",
+            "name": "Condition Block",
+            "title": "Description Block",
+            "type": "logic.if_else",
+            "base_type": "activity",
+            "properties": {
+              "conditions": [],
+              "continue_on_failure": false,
+              "description": "If-Else condition block",
+              "display_name": "Description Block",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "blocks": [
+              {
+                "unique_name": "definition_activity_02ZIQUWTLPMWU0seLv5fVLjVz1PJ9zqoSL7",
+                "name": "Condition Branch",
+                "title": "Description Condition",
+                "type": "logic.condition_block",
+                "base_type": "activity",
+                "properties": {
+                  "condition": {
+                    "left_operand": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIVCHNNS4A81TghF2QNzypLdCONjLkQju$",
+                    "operator": "mregex",
+                    "right_operand": "Description"
+                  },
+                  "continue_on_failure": false,
+                  "display_name": "Description Condition",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "actions": [
+                  {
+                    "unique_name": "definition_activity_02ZIQVVE7UEAU2en5HcScJF0bFCMjJrgw8F",
+                    "name": "Create Prompt",
+                    "title": "Description Entry Prompt",
+                    "type": "task.prompt_request",
+                    "base_type": "activity",
+                    "properties": {
+                      "assignee_roles": [
+                        "admin"
+                      ],
+                      "assignees": [
+                        "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$"
+                      ],
+                      "continue_on_failure": false,
+                      "description": "Description Entry Prompt Request",
+                      "display_name": "Description Entry Prompt",
+                      "expiration_date": {
+                        "is_relative_time": true,
+                        "relative_time": {
+                          "duration": 72,
+                          "time_units": "hours"
+                        }
+                      },
+                      "form_elements": [
+                        {
+                          "allow_multiselect": false,
+                          "form_element": "text",
+                          "form_label": "Port Description",
+                          "form_option_label_key": ""
+                        }
+                      ],
+                      "prompt_body": "Enter the new Port Description?",
+                      "prompt_title": "Port Description",
+                      "skip_execution": false,
+                      "task_owner": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                      "task_requestor": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                      "wait_for_prompt_response": true
+                    },
+                    "object_type": "definition_activity"
+                  },
+                  {
+                    "unique_name": "definition_activity_02ZIQW18I9RG11GOzazpL2YiLemckc0WMd8",
+                    "name": "Set Variables",
+                    "title": "Set Description",
+                    "type": "core.set_multiple_variables",
+                    "base_type": "activity",
+                    "properties": {
+                      "continue_on_failure": false,
+                      "description": "Set Description",
+                      "display_name": "Set Description",
+                      "skip_execution": false,
+                      "variables_to_update": [
+                        {
+                          "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZI1LPFPE0824eralf9zlgbVzNztuyQXYy$",
+                          "variable_value_new": "$activity.definition_activity_02ZIQVVE7UEAU2en5HcScJF0bFCMjJrgw8F.output.prompt_response.Port Description$"
+                        }
+                      ]
+                    },
+                    "object_type": "definition_activity"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "unique_name": "definition_activity_02ZIR6PHCWYSR7dFggf8qQ6E5hbvSXPqWzo",
+            "name": "Condition Block",
+            "title": "Admin Status Block",
+            "type": "logic.if_else",
+            "base_type": "activity",
+            "properties": {
+              "conditions": [],
+              "continue_on_failure": false,
+              "description": "If-Else condition block",
+              "display_name": "Admin Status Block",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "blocks": [
+              {
+                "unique_name": "definition_activity_02ZIR6PHF8KF37TCbSmYWG23Pd24VmjF52E",
+                "name": "Condition Branch",
+                "title": "Admin Status Condition",
+                "type": "logic.condition_block",
+                "base_type": "activity",
+                "properties": {
+                  "condition": {
+                    "left_operand": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIVCHNNS4A81TghF2QNzypLdCONjLkQju$",
+                    "operator": "mregex",
+                    "right_operand": "Change Operational Status"
+                  },
+                  "continue_on_failure": false,
+                  "display_name": "Admin Status Condition",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "actions": [
+                  {
+                    "unique_name": "definition_activity_02ZIR6PHI1ZZW35KcXdkcpvz4nXHw7FsyTU",
+                    "name": "Create Prompt",
+                    "title": "Status Selection Prompt",
+                    "type": "task.prompt_request",
+                    "base_type": "activity",
+                    "properties": {
+                      "assignee_roles": [
+                        "admin"
+                      ],
+                      "assignees": [
+                        "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$"
+                      ],
+                      "continue_on_failure": false,
+                      "description": "Status Selection Prompt Request",
+                      "display_name": "Status Selection Prompt",
+                      "expiration_date": {
+                        "is_relative_time": true,
+                        "relative_time": {
+                          "duration": 72,
+                          "time_units": "hours"
+                        }
+                      },
+                      "form_elements": [
+                        {
+                          "allow_multiselect": false,
+                          "form_element": "select",
+                          "form_label": "Admin Status",
+                          "form_option_label_key": "",
+                          "form_source_array": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIRA7RO1MHP6LfClGNqU91wkBYBmlIXHv$"
+                        }
+                      ],
+                      "prompt_body": "Change Admin Status Selection?",
+                      "prompt_title": "Port Admin Status Selection",
+                      "skip_execution": false,
+                      "task_owner": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                      "task_requestor": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                      "wait_for_prompt_response": true
+                    },
+                    "object_type": "definition_activity"
+                  },
+                  {
+                    "unique_name": "definition_activity_02ZIRYJYYO20T4Qgm9sJlQ25wangcVdp8s1",
+                    "name": "Condition Block",
+                    "title": "Set Admin Status Block",
+                    "type": "logic.if_else",
+                    "base_type": "activity",
+                    "properties": {
+                      "conditions": [],
+                      "continue_on_failure": false,
+                      "description": "If-Else condition block",
+                      "display_name": "Set Admin Status Block",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "blocks": [
+                      {
+                        "unique_name": "definition_activity_02ZIRYK0CP0QO5Igz70A3lyZ7NlSvNttdlR",
+                        "name": "Condition Branch",
+                        "title": "Enabled Condition",
+                        "type": "logic.condition_block",
+                        "base_type": "activity",
+                        "properties": {
+                          "condition": {
+                            "left_operand": "$activity.definition_activity_02ZIR6PHI1ZZW35KcXdkcpvz4nXHw7FsyTU.output.prompt_response.Admin Status$",
+                            "operator": "eq",
+                            "right_operand": "ENABLE"
+                          },
+                          "continue_on_failure": false,
+                          "display_name": "Enabled Condition",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02ZIR6PHNBT3N5C0LChvA9U65s14HFA36Qy",
+                            "name": "Set Variables",
+                            "title": "Enable Admin Status",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "description": "Enable Admin Status",
+                              "display_name": "Enable Admin Status",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZFAWAKW6Y4T20NyPE8pbJPDyOGATq37Ky$",
+                                  "variable_value_new": "true"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      },
+                      {
+                        "unique_name": "definition_activity_02ZIS2H77SJXI2CU69KTXo24CT0UdOTRYsY",
+                        "name": "Condition Branch",
+                        "title": "Disabled Condition",
+                        "type": "logic.condition_block",
+                        "base_type": "activity",
+                        "properties": {
+                          "condition": {
+                            "left_operand": "$activity.definition_activity_02ZIR6PHI1ZZW35KcXdkcpvz4nXHw7FsyTU.output.prompt_response.Admin Status$",
+                            "operator": "eq",
+                            "right_operand": "DISABLE"
+                          },
+                          "continue_on_failure": false,
+                          "display_name": "Disabled Condition",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02ZIS2H79F9DF2V9iRN1gwXZ3PjyqkpdGEZ",
+                            "name": "Set Variables",
+                            "title": "Disable Admin Status",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "description": "Disable Admin Status",
+                              "display_name": "Disable Admin Status",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZFAWAKW6Y4T20NyPE8pbJPDyOGATq37Ky$",
+                                  "variable_value_new": "false"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      },
+                      {
+                        "unique_name": "definition_activity_02ZIS2JHJ155C1NXicAB1gxjYgbQigQNhmh",
+                        "name": "Condition Branch",
+                        "title": "Reset Condition TBD",
+                        "type": "logic.condition_block",
+                        "base_type": "activity",
+                        "properties": {
+                          "condition": {
+                            "left_operand": "$activity.definition_activity_02ZIR6PHI1ZZW35KcXdkcpvz4nXHw7FsyTU.output.prompt_response.Admin Status$",
+                            "operator": "eq",
+                            "right_operand": "RESET"
+                          },
+                          "continue_on_failure": false,
+                          "display_name": "Reset Condition TBD",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02ZIS2JHL3X4M3nvmIvphY8I7LVB10XpMIm",
+                            "name": "Set Variables",
+                            "title": "Enable Admin Status",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "description": "Enable Admin Status",
+                              "display_name": "Enable Admin Status",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZFAWAKW6Y4T20NyPE8pbJPDyOGATq37Ky$",
+                                  "variable_value_new": "true"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "unique_name": "definition_activity_02ZIRFVRBYKBF23q5atpFBS0VGIOmM94cQi",
+            "name": "Condition Block",
+            "title": "VLAN Block",
+            "type": "logic.if_else",
+            "base_type": "activity",
+            "properties": {
+              "conditions": [],
+              "continue_on_failure": false,
+              "description": "If-Else condition block",
+              "display_name": "VLAN Block",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "blocks": [
+              {
+                "unique_name": "definition_activity_02ZIRFVRD9X9G5cdeTDr4mzZW8qEpIq6UGM",
+                "name": "Condition Branch",
+                "title": "VLAN Condition",
+                "type": "logic.condition_block",
+                "base_type": "activity",
+                "properties": {
+                  "condition": {
+                    "left_operand": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIVCHNNS4A81TghF2QNzypLdCONjLkQju$",
+                    "operator": "mregex",
+                    "right_operand": "Change VLANs"
+                  },
+                  "continue_on_failure": false,
+                  "display_name": "VLAN Condition",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "actions": [
+                  {
+                    "unique_name": "definition_activity_02ZIVG1X2R7SX5mmhF11ZFpp4Wf6hysi85s",
+                    "name": "Condition Block",
+                    "title": "Port Type Block",
+                    "type": "logic.if_else",
+                    "base_type": "activity",
+                    "properties": {
+                      "conditions": [],
+                      "continue_on_failure": false,
+                      "description": "If-Else condition block",
+                      "display_name": "Port Type Block",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "blocks": [
+                      {
+                        "unique_name": "definition_activity_02ZIVG1YM37A61SxHHNdaY3JQqktes1Ymfr",
+                        "name": "Condition Branch",
+                        "title": "Access Condition",
+                        "type": "logic.condition_block",
+                        "base_type": "activity",
+                        "properties": {
+                          "condition": {
+                            "left_operand": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZFAWAKW5QGQ37U5VfY3NsAzj9yNnOk9PN$",
+                            "operator": "eq",
+                            "right_operand": "access"
+                          },
+                          "continue_on_failure": false,
+                          "display_name": "Access Condition",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02ZIRGTL07JKG2ZV4YAkVoFzfCAKIOw4LXd",
+                            "name": "Create Prompt",
+                            "title": "VLAN Decision Prompt",
+                            "type": "task.prompt_request",
+                            "base_type": "activity",
+                            "properties": {
+                              "assignee_roles": [
+                                "admin"
+                              ],
+                              "assignees": [
+                                "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$"
+                              ],
+                              "continue_on_failure": false,
+                              "description": "VLAN Decision Prompt Request",
+                              "display_name": "VLAN Decision Prompt",
+                              "expiration_date": {
+                                "is_relative_time": true,
+                                "relative_time": {
+                                  "duration": 72,
+                                  "time_units": "hours"
+                                }
+                              },
+                              "form_elements": [
+                                {
+                                  "allow_multiselect": false,
+                                  "form_element": "checkbox",
+                                  "form_label": "Data",
+                                  "form_option_label_key": ""
+                                },
+                                {
+                                  "allow_multiselect": false,
+                                  "form_element": "checkbox",
+                                  "form_label": "Voice",
+                                  "form_option_label_key": ""
+                                }
+                              ],
+                              "prompt_body": "Select the Port VLANs to change?",
+                              "prompt_title": "Which Port VLANs",
+                              "skip_execution": false,
+                              "task_owner": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                              "task_requestor": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                              "wait_for_prompt_response": true
+                            },
+                            "object_type": "definition_activity"
+                          },
+                          {
+                            "unique_name": "definition_activity_02ZIVOC3AAIK05nd8epZUSuRnMNl46gNstY",
+                            "name": "Set Variables",
+                            "title": "Set VLAN Operations",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "description": "Set VLAN Operations",
+                              "display_name": "Set VLAN Operations",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIVNDQO48CV5EaiAQ6gNvxQ8eCmnQMjYP$",
+                                  "variable_value_new": "$activity.definition_activity_02ZIRGTL07JKG2ZV4YAkVoFzfCAKIOw4LXd.output.prompt_response.Data$"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIVNKP0ITW94X4XBfzfoRsomLIlrLQguK$",
+                                  "variable_value_new": "$activity.definition_activity_02ZIRGTL07JKG2ZV4YAkVoFzfCAKIOw4LXd.output.prompt_response.Voice$"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      },
+                      {
+                        "unique_name": "definition_activity_02ZIVG1ZVDQKA2in62lIJLHAim9mCCuGIPP",
+                        "name": "Condition Branch",
+                        "title": "Trunk Condition",
+                        "type": "logic.condition_block",
+                        "base_type": "activity",
+                        "properties": {
+                          "condition": {
+                            "left_operand": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZFAWAKW5QGQ37U5VfY3NsAzj9yNnOk9PN$",
+                            "operator": "eq",
+                            "right_operand": "trunk"
+                          },
+                          "continue_on_failure": false,
+                          "display_name": "Trunk Condition",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02ZIVIL738XPT7M4O49IiwHPKJdNDTT6GzK",
+                            "name": "Create Prompt",
+                            "title": "VLAN Decision Prompt",
+                            "type": "task.prompt_request",
+                            "base_type": "activity",
+                            "properties": {
+                              "assignee_roles": [
+                                "admin"
+                              ],
+                              "assignees": [
+                                "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$"
+                              ],
+                              "continue_on_failure": false,
+                              "description": "VLAN Decision Prompt Request",
+                              "display_name": "VLAN Decision Prompt",
+                              "expiration_date": {
+                                "is_relative_time": true,
+                                "relative_time": {
+                                  "duration": 72,
+                                  "time_units": "hours"
+                                }
+                              },
+                              "form_elements": [
+                                {
+                                  "allow_multiselect": false,
+                                  "form_element": "checkbox",
+                                  "form_label": "Native VLANs",
+                                  "form_option_label_key": ""
+                                },
+                                {
+                                  "allow_multiselect": false,
+                                  "form_element": "checkbox",
+                                  "form_label": "Allowed VLANs",
+                                  "form_option_label_key": ""
+                                }
+                              ],
+                              "prompt_body": "Select the Port VLANs to change?",
+                              "prompt_title": "Which Port VLANs",
+                              "skip_execution": false,
+                              "task_owner": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                              "task_requestor": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                              "wait_for_prompt_response": true
+                            },
+                            "object_type": "definition_activity"
+                          },
+                          {
+                            "unique_name": "definition_activity_02ZIVPQK6Z7KJ2o6bqhoALWRTVb6pAF7QhK",
+                            "name": "Set Variables",
+                            "title": "Set VLAN Operations",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "description": "Set VLAN Operations",
+                              "display_name": "Set VLAN Operations",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIVNDQO48CV5EaiAQ6gNvxQ8eCmnQMjYP$",
+                                  "variable_value_new": "$activity.definition_activity_02ZIVIL738XPT7M4O49IiwHPKJdNDTT6GzK.output.prompt_response.Native VLANs$"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIVO1D7W3TA64hfjMk6RYZAQdJYwYMaVk$",
+                                  "variable_value_new": "$activity.definition_activity_02ZIVIL738XPT7M4O49IiwHPKJdNDTT6GzK.output.prompt_response.Allowed VLANs$"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "unique_name": "definition_activity_02ZIRJV44WLH8575qu7SRUcGGi8jzNIRF1d",
+                    "name": "Condition Block",
+                    "title": "Data VLAN Block",
+                    "type": "logic.if_else",
+                    "base_type": "activity",
+                    "properties": {
+                      "conditions": [],
+                      "continue_on_failure": false,
+                      "description": "If-Else condition block",
+                      "display_name": "Data VLAN Block",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "blocks": [
+                      {
+                        "unique_name": "definition_activity_02ZIRJV5JJ65V05yojHFrr8Saoaz3GM93NL",
+                        "name": "Condition Branch",
+                        "title": "Data VLAN Condition",
+                        "type": "logic.condition_block",
+                        "base_type": "activity",
+                        "properties": {
+                          "condition": {
+                            "left_operand": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIVNDQO48CV5EaiAQ6gNvxQ8eCmnQMjYP$",
+                            "operator": "eq",
+                            "right_operand": true
+                          },
+                          "continue_on_failure": false,
+                          "display_name": "Data VLAN Condition",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02ZIRFVREVXWB1CHdPMcI4vw6ARlFt5AUNF",
+                            "name": "Create Prompt",
+                            "title": "Data VLAN Entry Prompt",
+                            "type": "task.prompt_request",
+                            "base_type": "activity",
+                            "properties": {
+                              "assignee_roles": [
+                                "admin"
+                              ],
+                              "assignees": [
+                                "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$"
+                              ],
+                              "continue_on_failure": false,
+                              "description": "Data VLAN Entry Prompt Request",
+                              "display_name": "Data VLAN Entry Prompt",
+                              "expiration_date": {
+                                "is_relative_time": true,
+                                "relative_time": {
+                                  "duration": 72,
+                                  "time_units": "hours"
+                                }
+                              },
+                              "form_elements": [
+                                {
+                                  "allow_multiselect": false,
+                                  "form_element": "text",
+                                  "form_label": "Vlan",
+                                  "form_option_label_key": "",
+                                  "form_source_array": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIRA7RO1MHP6LfClGNqU91wkBYBmlIXHv$"
+                                }
+                              ],
+                              "prompt_body": "Enter the Ports  VLAN?",
+                              "prompt_title": "Port VLAN",
+                              "skip_execution": false,
+                              "task_owner": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                              "task_requestor": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                              "wait_for_prompt_response": true
+                            },
+                            "object_type": "definition_activity"
+                          },
+                          {
+                            "unique_name": "definition_activity_02ZIRFVRKQDJW1L0nM7mEPkAcPxeosWeVvL",
+                            "name": "Set Variables",
+                            "title": "Set Data VLAN",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "description": "Set Data VLAN",
+                              "display_name": "Set Data VLAN",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZFAWAKW658C6yxvlQwA7hp5EqQkWMHnxe$",
+                                  "variable_value_new": "$activity.definition_activity_02ZIRFVREVXWB1CHdPMcI4vw6ARlFt5AUNF.output.prompt_response.Vlan$"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "unique_name": "definition_activity_02ZIRPUXYENYD06iZHDZOFgtMY72VCirtA1",
+                    "name": "Condition Block",
+                    "title": "Voice VLAN Block",
+                    "type": "logic.if_else",
+                    "base_type": "activity",
+                    "properties": {
+                      "conditions": [],
+                      "continue_on_failure": false,
+                      "description": "If-Else condition block",
+                      "display_name": "Voice VLAN Block",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "blocks": [
+                      {
+                        "unique_name": "definition_activity_02ZIRPUXZKVVN7lQtpXf2eGuI6KspQGANT6",
+                        "name": "Condition Branch",
+                        "title": "Voice VLAN Condition",
+                        "type": "logic.condition_block",
+                        "base_type": "activity",
+                        "properties": {
+                          "condition": {
+                            "left_operand": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIVNKP0ITW94X4XBfzfoRsomLIlrLQguK$",
+                            "operator": "eq",
+                            "right_operand": true
+                          },
+                          "continue_on_failure": false,
+                          "display_name": "Voice VLAN Condition",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02ZIRPUY17TBW00GuAXhp7g2l8cyEfi3ryu",
+                            "name": "Create Prompt",
+                            "title": "Voice VLAN Entry Prompt",
+                            "type": "task.prompt_request",
+                            "base_type": "activity",
+                            "properties": {
+                              "assignee_roles": [
+                                "admin"
+                              ],
+                              "assignees": [
+                                "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$"
+                              ],
+                              "continue_on_failure": false,
+                              "description": "Voice VLAN Entry Prompt Request",
+                              "display_name": "Voice VLAN Entry Prompt",
+                              "expiration_date": {
+                                "is_relative_time": true,
+                                "relative_time": {
+                                  "duration": 72,
+                                  "time_units": "hours"
+                                }
+                              },
+                              "form_elements": [
+                                {
+                                  "allow_multiselect": false,
+                                  "form_element": "text",
+                                  "form_label": "Voice Vlan",
+                                  "form_option_label_key": "",
+                                  "form_source_array": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIRA7RO1MHP6LfClGNqU91wkBYBmlIXHv$"
+                                }
+                              ],
+                              "prompt_body": "Enter the Ports Voice VLAN?",
+                              "prompt_title": "Port Voice VLAN",
+                              "skip_execution": false,
+                              "task_owner": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                              "task_requestor": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                              "wait_for_prompt_response": true
+                            },
+                            "object_type": "definition_activity"
+                          },
+                          {
+                            "unique_name": "definition_activity_02ZIRPUY5QUIQ7BhDll9m8DUwuUnjBwNNkv",
+                            "name": "Set Variables",
+                            "title": "Set Voice VLAN",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "description": "Set Voice VLAN",
+                              "display_name": "Set Voice VLAN",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZI1L3SN0L3O3DQKXEAsxDsBCAxvJJD9xg$",
+                                  "variable_value_new": "$activity.definition_activity_02ZIRPUY17TBW00GuAXhp7g2l8cyEfi3ryu.output.prompt_response.Voice Vlan$"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "unique_name": "definition_activity_02ZIVQQ4RSOVZ0phT41nGxlQdiB6OvjGqUJ",
+                    "name": "Condition Block",
+                    "title": "Allowed VLAN Block",
+                    "type": "logic.if_else",
+                    "base_type": "activity",
+                    "properties": {
+                      "conditions": [],
+                      "continue_on_failure": false,
+                      "description": "If-Else condition block",
+                      "display_name": "Allowed VLAN Block",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "blocks": [
+                      {
+                        "unique_name": "definition_activity_02ZIVQQ4T5GCQ4ARmXMslpkQ2e4FaaiTlym",
+                        "name": "Condition Branch",
+                        "title": "Allowed VLAN Condition",
+                        "type": "logic.condition_block",
+                        "base_type": "activity",
+                        "properties": {
+                          "condition": {
+                            "left_operand": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIVO1D7W3TA64hfjMk6RYZAQdJYwYMaVk$",
+                            "operator": "eq",
+                            "right_operand": true
+                          },
+                          "continue_on_failure": false,
+                          "display_name": "Allowed VLAN Condition",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02ZIVQQ4VHV177kw4pkYD1fRBc6bPw5BjZp",
+                            "name": "Create Prompt",
+                            "title": "Allowed VLAN Entry Prompt",
+                            "type": "task.prompt_request",
+                            "base_type": "activity",
+                            "properties": {
+                              "assignee_roles": [
+                                "admin"
+                              ],
+                              "assignees": [
+                                "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$"
+                              ],
+                              "continue_on_failure": false,
+                              "description": "Allowed VLAN Entry Prompt Request",
+                              "display_name": "Allowed VLAN Entry Prompt",
+                              "expiration_date": {
+                                "is_relative_time": true,
+                                "relative_time": {
+                                  "duration": 72,
+                                  "time_units": "hours"
+                                }
+                              },
+                              "form_elements": [
+                                {
+                                  "allow_multiselect": false,
+                                  "form_element": "text",
+                                  "form_label": "Allowed VLANs",
+                                  "form_option_label_key": "",
+                                  "form_source_array": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIRA7RO1MHP6LfClGNqU91wkBYBmlIXHv$"
+                                }
+                              ],
+                              "prompt_body": "Enter the Ports Allowed VLANs?",
+                              "prompt_title": "Ports Allowed VLANs",
+                              "skip_execution": false,
+                              "task_owner": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                              "task_requestor": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                              "wait_for_prompt_response": true
+                            },
+                            "object_type": "definition_activity"
+                          },
+                          {
+                            "unique_name": "definition_activity_02ZIVQQ52P59Z2A4bEUb7VGmTsvkKNEN6yK",
+                            "name": "Set Variables",
+                            "title": "Set Allowed VLAN",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "description": "Set Allowed VLAN",
+                              "display_name": "Set Allowed VLAN",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZFAWAKW6BDX505kzpoFc0PzlcgT1svDEP$",
+                                  "variable_value_new": "$activity.definition_activity_02ZIVQQ4VHV177kw4pkYD1fRBc6bPw5BjZp.output.prompt_response.Allowed VLANs$"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "unique_name": "definition_activity_02ZISM133ZSMW2IzsLsQUJAC9fPBgOZRRxc",
+            "name": "Condition Block",
+            "title": "Access Policy Block",
+            "type": "logic.if_else",
+            "base_type": "activity",
+            "properties": {
+              "conditions": [],
+              "continue_on_failure": false,
+              "description": "If-Else condition block",
+              "display_name": "Access Policy Block",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "blocks": [
+              {
+                "unique_name": "definition_activity_02ZISM135B2QA5RQlwn0CGpFjFFFjGehcOE",
+                "name": "Condition Branch",
+                "title": "Access Policy Condition",
+                "type": "logic.condition_block",
+                "base_type": "activity",
+                "properties": {
+                  "condition": {
+                    "left_operand": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIVCHNNS4A81TghF2QNzypLdCONjLkQju$",
+                    "operator": "mregex",
+                    "right_operand": "Change Access Policy"
+                  },
+                  "continue_on_failure": false,
+                  "display_name": "Access Policy Condition",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "actions": [
+                  {
+                    "unique_name": "definition_activity_02ZIXQEXHGDQ65CMb7mQKPUM3OtJRserw4c",
+                    "name": "Create Prompt",
+                    "title": "Access Policy Prompt",
+                    "type": "task.prompt_request",
+                    "base_type": "activity",
+                    "properties": {
+                      "assignee_roles": [
+                        "admin"
+                      ],
+                      "assignees": [
+                        "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$"
+                      ],
+                      "continue_on_failure": false,
+                      "description": "Access Policy Prompt Request",
+                      "display_name": "Access Policy Prompt",
+                      "expiration_date": {
+                        "is_relative_time": true,
+                        "relative_time": {
+                          "duration": 72,
+                          "time_units": "hours"
+                        }
+                      },
+                      "form_elements": [
+                        {
+                          "allow_multiselect": false,
+                          "form_element": "select",
+                          "form_label": "Access Policy",
+                          "form_option_label_key": "",
+                          "form_source_array": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIXSLQYCL4H3NUiIz7BUpyalAB43WNwgV$"
+                        }
+                      ],
+                      "prompt_body": "Select a Policy Type?",
+                      "prompt_title": "What Access Policy Type?",
+                      "skip_execution": false,
+                      "task_owner": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                      "task_requestor": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                      "wait_for_prompt_response": true
+                    },
+                    "object_type": "definition_activity"
+                  },
+                  {
+                    "unique_name": "definition_activity_02ZIXPXUX24MK24sDCkwcyLpbZ90mauidXu",
+                    "name": "Condition Block",
+                    "title": "Access Policy Block",
+                    "type": "logic.if_else",
+                    "base_type": "activity",
+                    "properties": {
+                      "conditions": [],
+                      "continue_on_failure": false,
+                      "description": "If-Else condition block",
+                      "display_name": "Access Policy Block",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "blocks": [
+                      {
+                        "unique_name": "definition_activity_02ZIXPXWJB1407GLwqm5WI1KoY0kgtvgpd2",
+                        "name": "Condition Branch",
+                        "title": "Open Condition",
+                        "type": "logic.condition_block",
+                        "base_type": "activity",
+                        "properties": {
+                          "condition": {
+                            "left_operand": "$activity.definition_activity_02ZIXQEXHGDQ65CMb7mQKPUM3OtJRserw4c.output.prompt_response.Access Policy$",
+                            "operator": "eq",
+                            "right_operand": "Open"
+                          },
+                          "continue_on_failure": false,
+                          "display_name": "Open Condition",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02ZIXVC5ATRXP1P6vm3ISLMRhZO7GJDRQf6",
+                            "name": "Set Variables",
+                            "title": "Set Access Policy",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "description": "Set Access Policy",
+                              "display_name": "Set Access Policy",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZFAWAKW6H4W0WhADRExsCXeH0lN1zTON1$",
+                                  "variable_value_new": "$activity.definition_activity_02ZIXQEXHGDQ65CMb7mQKPUM3OtJRserw4c.output.prompt_response.Access Policy$"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      },
+                      {
+                        "unique_name": "definition_activity_02ZIXPXXW3OQ54qT0sBGxMboeBpBmoT9y4N",
+                        "name": "Condition Branch",
+                        "title": "Custom Condition",
+                        "type": "logic.condition_block",
+                        "base_type": "activity",
+                        "properties": {
+                          "condition": {
+                            "left_operand": "$activity.definition_activity_02ZIXQEXHGDQ65CMb7mQKPUM3OtJRserw4c.output.prompt_response.Access Policy$",
+                            "operator": "eq",
+                            "right_operand": "Custom access policy"
+                          },
+                          "continue_on_failure": false,
+                          "display_name": "Custom Condition",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02ZISIFKTMGH12wZ43VAFZgX4ccV7P2ICKw",
+                            "name": "Meraki - Get Network Switch Access Policies",
+                            "title": "Meraki - Get Network Switch Access Policies",
+                            "type": "workflow.atomic_workflow",
+                            "base_type": "subworkflow",
+                            "properties": {
+                              "atomic": {
+                                "atomic_group": "Cisco Meraki",
+                                "atomic_subgroup": "Switch"
+                              },
+                              "continue_on_failure": false,
+                              "description": "List the access policies for a switch network. Only returns access policies with 'my RADIUS server' as authentication method",
+                              "display_name": "Meraki - Get Network Switch Access Policies",
+                              "input": {
+                                "variable_workflow_02OARCF7IHK6W5UkZqCcgPOiJx1WDFMjKxU": "$activity.definition_activity_02ZFG1N51VA9O5iLfU774PTYBNgASxI2xoo.output.variable_workflow_02ZFFYZFFDYCZ63cRvwheWjjJ12f55DRgTY$"
+                              },
+                              "runtime_user": {
+                                "target_default": true
+                              },
+                              "skip_execution": false,
+                              "target": {
+                                "target_type": "meraki.endpoint",
+                                "use_workflow_target": true
+                              },
+                              "workflow_id": "definition_workflow_02OARCF7IHHVK7FdS9y8IRL8g8bkqPQZ7Nw",
+                              "workflow_name": "Meraki - Get Network Switch Access Policies"
+                            },
+                            "object_type": "definition_activity"
+                          },
+                          {
+                            "unique_name": "definition_activity_02ZISOWEQALGW1nzbsz7lFKMxs42oDq8sJm",
+                            "name": "JSONPath Query",
+                            "title": "Parse Access Policy Names",
+                            "type": "corejava.jsonpathquery",
+                            "base_type": "activity",
+                            "properties": {
+                              "action_timeout": 180,
+                              "continue_on_failure": false,
+                              "description": "JSONPath Query to get value in JSON",
+                              "display_name": "Parse Access Policy Names",
+                              "input_json": "$activity.definition_activity_02ZISIFKTMGH12wZ43VAFZgX4ccV7P2ICKw.output.variable_workflow_02OARCF7IHO1S1GMiEMVm3WRa07Xz1Op1tZ$",
+                              "jsonpath_queries": [
+                                {
+                                  "default_value": "",
+                                  "jsonpath_query": "$[?(@.name)].name",
+                                  "jsonpath_query_name": "accessPolicyNames",
+                                  "jsonpath_query_type": "array",
+                                  "set_default_value": false,
+                                  "zdate_type_format": "yyyy-MM-dd'T'HH:mm:ssZ"
+                                }
+                              ],
+                              "skip_execution": false
+                            },
+                            "object_type": "definition_activity"
+                          },
+                          {
+                            "unique_name": "definition_activity_02ZISUM6YYT6235sq4a0dDzK1cZc7fpgt8P",
+                            "name": "Set Variables",
+                            "title": "Set Policy Names Array",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "description": "Set Policy Names Array",
+                              "display_name": "Set Policy Names Array",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZISV9FCWFIO2ly5AyJMGzyFt3ymy71REi$",
+                                  "variable_value_new": "$activity.definition_activity_02ZISOWEQALGW1nzbsz7lFKMxs42oDq8sJm.output.jsonpath_queries.accessPolicyNames$"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          },
+                          {
+                            "unique_name": "definition_activity_02ZISM1371CLR54UPV5G70psHsneMRTzo0j",
+                            "name": "Create Prompt",
+                            "title": "Select Access Policy Prompt",
+                            "type": "task.prompt_request",
+                            "base_type": "activity",
+                            "properties": {
+                              "assignee_roles": [
+                                "admin"
+                              ],
+                              "assignees": [
+                                "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$"
+                              ],
+                              "continue_on_failure": false,
+                              "description": "Select Access Policy Prompt Request",
+                              "display_name": "Select Access Policy Prompt",
+                              "expiration_date": {
+                                "is_relative_time": true,
+                                "relative_time": {
+                                  "duration": 72,
+                                  "time_units": "hours"
+                                }
+                              },
+                              "form_elements": [
+                                {
+                                  "allow_multiselect": false,
+                                  "form_element": "select",
+                                  "form_label": "PortAccessPolicy",
+                                  "form_option_label_key": "",
+                                  "form_source_array": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZISV9FCWFIO2ly5AyJMGzyFt3ymy71REi$"
+                                }
+                              ],
+                              "prompt_body": "Select the new Port Access Policy?",
+                              "prompt_title": "Port Access Policy",
+                              "skip_execution": false,
+                              "task_owner": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                              "task_requestor": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.started_by$",
+                              "wait_for_prompt_response": true
+                            },
+                            "object_type": "definition_activity"
+                          },
+                          {
+                            "unique_name": "definition_activity_02ZISR1IP30BO5oJrLBJNOkovEtChcNTnfy",
+                            "name": "JSONPath Query",
+                            "title": "Parse Access Policy Number",
+                            "type": "corejava.jsonpathquery",
+                            "base_type": "activity",
+                            "properties": {
+                              "action_timeout": 180,
+                              "continue_on_failure": false,
+                              "description": "JSONPath Query to get value in JSON",
+                              "display_name": "Parse Access Policy Number",
+                              "input_json": "$activity.definition_activity_02ZISIFKTMGH12wZ43VAFZgX4ccV7P2ICKw.output.variable_workflow_02OARCF7IHO1S1GMiEMVm3WRa07Xz1Op1tZ$",
+                              "jsonpath_queries": [
+                                {
+                                  "default_value": "",
+                                  "jsonpath_query": "$[?(@.name == '$activity.definition_activity_02ZISM1371CLR54UPV5G70psHsneMRTzo0j.output.prompt_response.PortAccessPolicy$')].accessPolicyNumber",
+                                  "jsonpath_query_name": "accessPolicyNumber",
+                                  "jsonpath_query_type": "string",
+                                  "set_default_value": false,
+                                  "zdate_type_format": "yyyy-MM-dd'T'HH:mm:ssZ"
+                                }
+                              ],
+                              "skip_execution": false
+                            },
+                            "object_type": "definition_activity"
+                          },
+                          {
+                            "unique_name": "definition_activity_02ZISM13C32CJ6CFBbXzjXIvIbN1pSc6p9D",
+                            "name": "Set Variables",
+                            "title": "Set Access Policy",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "description": "Set Access Policy",
+                              "display_name": "Set Access Policy",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZFAWAKW6H4W0WhADRExsCXeH0lN1zTON1$",
+                                  "variable_value_new": "$activity.definition_activity_02ZISR1IP30BO5oJrLBJNOkovEtChcNTnfy.output.jsonpath_queries.accessPolicyNumber$"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIWRYKXPGX237jQvzQsDV5OS6VvVnZeF6$",
+                                  "variable_value_new": "$activity.definition_activity_02ZIXQEXHGDQ65CMb7mQKPUM3OtJRserw4c.output.prompt_response.Access Policy$"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_02ZFAWAKW9KTH3xxfOHqRielgpeVq6q8YEC",
+        "name": "For Each Port",
+        "title": "For Each Port",
+        "type": "logic.for_each",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "For Each Port",
+          "skip_execution": false,
+          "source_array": "$activity.definition_activity_02ZHY5KD53ELN3GZymwbmbrHGq0xgcZbMRi.output.prompt_response.Selected Ports$"
+        },
+        "object_type": "definition_activity",
+        "actions": [
+          {
+            "unique_name": "definition_activity_02ZHYJEVLGFNT78VN916ZfeJT0gPRGCHcTJ",
+            "name": "JSONPath Query",
+            "title": "Parse Port Id",
+            "type": "corejava.jsonpathquery",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "continue_on_failure": false,
+              "description": "JSONPath Query to get value in JSON",
+              "display_name": "Parse Port Id",
+              "input_json": "$activity.definition_activity_02ZHWZ4K010ZF6WVF5yjbfyidf5uCqazDi9.output.variable_workflow_02LLUYO8DUAUK5cdNbWcLbEsrzMeC5jahEc$",
+              "jsonpath_queries": [
+                {
+                  "jsonpath_query": "$[?(@.interface.name == '$activity.definition_activity_02ZFAWAKW9KTH3xxfOHqRielgpeVq6q8YEC.input.source_array[@]$')].portId",
+                  "jsonpath_query_name": "portId",
+                  "jsonpath_query_type": "string",
+                  "set_default_value": false,
+                  "zdate_type_format": "yyyy-MM-dd'T'HH:mm:ssZ"
+                }
+              ],
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZI1BXGL0ER86aoglU9hpGWO931CJI7wvM",
+            "name": "Meraki - Update Device Switch Port",
+            "title": "Meraki - Update Device Switch Port",
+            "type": "workflow.atomic_workflow",
+            "base_type": "subworkflow",
+            "properties": {
+              "atomic": {
+                "atomic_group": "Cisco Meraki",
+                "atomic_subgroup": "Switch"
+              },
+              "continue_on_failure": false,
+              "description": "Update a switch port",
+              "display_name": "Meraki - Update Device Switch Port",
+              "input": {
+                "variable_workflow_02LLUSYKBX4PZ3WjZouQ7Ao1l5hT4cnAUrN": [],
+                "variable_workflow_02LLUSYKBXGAB7ib3NJmVRe6DqQI0M9zMH1": [],
+                "variable_workflow_02LLUSYKBXQ7D4xyOMMWwHZHHQ2cEOv5Wln": [],
+                "variable_workflow_02LLUSYKBXXGH34AbYGqboz3vfZqit9CPyV": "$activity.definition_activity_02ZFHRNQB3U291TjtnZjWMaGsmlAYDNxSuB.output.variable_workflow_02ZFHNJ7SQDSM1ojSPnNl0UkLriDMMZINIS$",
+                "variable_workflow_02LLUSYKBYOQT4BOkCOQNg89WmBvlZhHiSm": "",
+                "variable_workflow_02LLUSYKBZAKG2dyFrZHNVBXEm1ya380I3m": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZFAWAKW6BDX505kzpoFc0PzlcgT1svDEP$",
+                "variable_workflow_02LLUSYKBZPQR21LS1nlDQuyg7SffMfLXYb": "",
+                "variable_workflow_02LLUSYKC0PL36XDwFWuMpoBTf8gDGg7SSG": "",
+                "variable_workflow_02LLUSYKC1CKM3aD49S4oU8KtcWlXyJq3TY": "{}",
+                "variable_workflow_02LLUSYKC2CX5784kkVjameEjvpseeS1mUm": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZIWRYKXPGX237jQvzQsDV5OS6VvVnZeF6$",
+                "variable_workflow_02LLUSYKC2M1B6KsrKKuu6Lu3zMf9Vvkyro": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZFAWAKW658C6yxvlQwA7hp5EqQkWMHnxe$",
+                "variable_workflow_02LLUSYKC3THY4wvCURJUJLZ5M0CLLRKQfC": "$activity.definition_activity_02ZHYJEVLGFNT78VN916ZfeJT0gPRGCHcTJ.output.jsonpath_queries.portId$",
+                "variable_workflow_02LLUSYKC41ZV4aUwh1C0r9CG2So2fP2GFN": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZFAWAKW5QGQ37U5VfY3NsAzj9yNnOk9PN$",
+                "variable_workflow_02LLUSYKC82Z16MjBoPD6gF8yttFpiuYDKn": "",
+                "variable_workflow_02LLUSYKC8E0T6Ak1VgZnAM4qwByic8KJPQ": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZFAWAKW6H4W0WhADRExsCXeH0lN1zTON1$",
+                "variable_workflow_02LLUSYKC9NKE4YHnDq0PhrjEcWt9b3kPuF": "",
+                "variable_workflow_02LLUSYKCCOLA4Bd6SfZY4wQLR7m0MD24rU": "{}",
+                "variable_workflow_02LLUSYKCECQJ5w06BHfjOyOpV99NVPsifG": "",
+                "variable_workflow_02LLUSYKCH02S5XRUR7mkVJFL61o2cAbnkR": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZI1L3SN0L3O3DQKXEAsxDsBCAxvJJD9xg$",
+                "variable_workflow_02LLUSYKCHV6D5y7vJDrRS0dWmotXgiEvLv": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZI1LPFPE0824eralf9zlgbVzNztuyQXYy$",
+                "variable_workflow_02LLUUS7H0GQP5g3Ta1tR3yD2Rt1wMam9T3": true,
+                "variable_workflow_02LMN059KPQRF5TRg53rsD0Nky9x4yFEbe0": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.local.variable_workflow_02ZFAWAKW6Y4T20NyPE8pbJPDyOGATq37Ky$",
+                "variable_workflow_02LMN40XI6JQR33Jqh4R4GE6xNqUpbwsAgU": "",
+                "variable_workflow_02LMN4K5FBKX724j9phzqKI0rQN7ubHCNYe": "",
+                "variable_workflow_02LMN50RVQV360p6viNghFRsDGeegCxZPwg": "",
+                "variable_workflow_02LMN5GEUI7HG2JrpTlVSeRMyiyZH9eOpGK": "",
+                "variable_workflow_02LMN5X9BBXCH6HEQMLIJKdERyfnfYBth2m": "",
+                "variable_workflow_02LMN6CQX60OC0GrzaJy35TAdDhmsJ54vgl": "",
+                "variable_workflow_02LMN6SON75QV5HKTBA9Ex7BOP8zysAuqQ2": "",
+                "variable_workflow_02Z8NR6YI8FAO5ecRaknSjPjlYgQNp8uYIF": "",
+                "variable_workflow_02Z8NR6YIAREG5Ic3dpDRLs0JFKlXoePJkN": ""
+              },
+              "runtime_user": {
+                "target_default": true
+              },
+              "skip_execution": false,
+              "target": {
+                "target_type": "meraki.endpoint",
+                "use_workflow_target": true
+              },
+              "workflow_id": "definition_workflow_02LLUSYK4J29K0l7bhU4PlTtgMFEdAMaXhi",
+              "workflow_name": "Meraki - Update Device Switch Port"
+            },
+            "object_type": "definition_activity"
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_02ZFAWAKWACZK5eSt6ZgTqMRh9L2lcEytOF",
+        "name": "Format Results",
+        "title": "Format Results",
+        "type": "python3.script",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Format Results",
+          "script": "import sys\nimport json\n\nports = sys.argv[1]\nserial = sys.argv[2]\n\nresult = f\"Successfully updated ports {ports} on switch {serial}.\"\n",
+          "script_arguments": [
+            "$activity.definition_activity_02ZHY5KD53ELN3GZymwbmbrHGq0xgcZbMRi.output.prompt_response.Selected Ports$",
+            "$activity.definition_activity_02ZFHRNQB3U291TjtnZjWMaGsmlAYDNxSuB.output.variable_workflow_02ZFHNJ7SQDSM1ojSPnNl0UkLriDMMZINIS$"
+          ],
+          "script_queries": [
+            {
+              "script_query": "result",
+              "script_query_name": "summary",
+              "script_query_type": "string"
+            }
+          ],
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02ZFAWAKWALVX3HGZ9hAQdT6FigPsPSpgTs",
+        "name": "Set Output Results",
+        "title": "Set Output Results",
+        "type": "core.set_multiple_variables",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Set Output Results",
+          "skip_execution": false,
+          "variables_to_update": [
+            {
+              "variable_to_update": "$workflow.definition_workflow_02ZFAWAKW3XMJ1n7T4AZ3kuAlt4P7v47av0.output.variable_workflow_02ZFAWAKW7LMI5kIAkmsg1bQ8Gw1i1jLt96$",
+              "variable_value_new": "$activity.definition_activity_02ZFAWAKWACZK5eSt6ZgTqMRh9L2lcEytOF.output.script_queries.summary$"
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02ZFFLPEP33GL3SGKhG58L9MsQq8fskbRpy",
+        "name": "Completed",
+        "title": "Completed",
+        "type": "logic.completed",
+        "base_type": "activity",
+        "properties": {
+          "completion_type": "succeeded",
+          "continue_on_failure": false,
+          "description": "Completed action",
+          "display_name": "Completed",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      }
+    ],
+    "categories": [
+      "category_02LJ4HOYF9VX14TTs0XSPIxC7qWqgrtlzwa",
+      "category_02ZKNC96HSRPT5K2zyERhnOMW42DKVUZfdy"
+    ],
+    "metadata": {
+      "ui_metadata": {
+        "variable_order": {
+          "export": {
+            "outputs": [
+              "variable_workflow_02ZFAWAKW7G3X2K5I3EabR5eNfJtdRzcU4D",
+              "variable_workflow_02ZFAWAKW7LMI5kIAkmsg1bQ8Gw1i1jLt96"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "categories": {
+    "category_02ZKNC96HSRPT5K2zyERhnOMW42DKVUZfdy": {
+      "unique_name": "category_02ZKNC96HSRPT5K2zyERhnOMW42DKVUZfdy",
+      "name": "Operational Tools",
+      "title": "Operational Tools",
+      "type": "basic.category",
+      "base_type": "category",
+      "description": "Network Operational Utilities and Tools",
+      "category_type": "custom",
+      "object_type": "category"
+    }
+  },
+  "targets": {
+    "definition_target_02YLR8ZFIXRC45RODbqQ3jlhVKa5EJkpjCI": {
+      "unique_name": "definition_target_02YLR8ZFIXRC45RODbqQ3jlhVKa5EJkpjCI",
+      "name": "Meraki-GODACCESS",
+      "title": "Meraki-GODACCESS",
+      "type": "meraki.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "default_runtime_user_id": "definition_runtime_user_02YLR8A7WD7L65jFbKRgU1eviSWkxYctrXX",
+        "display_name": "Meraki-GODACCESS",
+        "host": "api.meraki.com",
+        "ignore_proxy": false,
+        "is_https_proxy": false,
+        "is_integration_target": false,
+        "port": 443,
+        "protocol": "https"
+      }
+    }
+  },
+  "runtime_users": {
+    "definition_runtime_user_02YLR8A7WD7L65jFbKRgU1eviSWkxYctrXX": {
+      "unique_name": "definition_runtime_user_02YLR8A7WD7L65jFbKRgU1eviSWkxYctrXX",
+      "name": "GODACCESS",
+      "title": "GODACCESS",
+      "type": "runtime_user.meraki_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "api_key": "*****",
+        "display_name": "GODACCESS"
+      }
+    }
+  },
+  "subworkflows": [
+    {
+      "workflow": {
+        "unique_name": "definition_workflow_02ZFESAYI8M3W76oM7GOSSLAlON45p6ALHy",
+        "name": "Meraki Choose Organization",
+        "title": "Meraki Choose Organization",
+        "type": "generic.workflow",
+        "base_type": "workflow",
+        "variables": [
+          {
+            "schema_id": "datatype.string",
+            "properties": {
+              "value": "",
+              "scope": "output",
+              "name": "orgId",
+              "type": "datatype.string",
+              "is_required": false,
+              "display_on_wizard": false,
+              "is_invisible": false,
+              "variable_string_format": ""
+            },
+            "unique_name": "variable_workflow_02ZFFGHM3B3M14yUB3CzI2x1XJBBabiioId",
+            "object_type": "variable_workflow"
+          },
+          {
+            "schema_id": "variable_type_array_01JhSTW61I3ZU2IfL7dwQox83eFDzE1qUiA",
+            "properties": {
+              "value": [],
+              "scope": "local",
+              "name": "organizationIdList",
+              "type": "datatype.array",
+              "is_required": false,
+              "display_on_wizard": false,
+              "is_invisible": false,
+              "variable_string_format": ""
+            },
+            "unique_name": "variable_workflow_02ZFESAYYGPVM6kShIUgpG0l5o1K7qtkY3S",
+            "object_type": "variable_workflow"
+          },
+          {
+            "schema_id": "datatype.string",
+            "properties": {
+              "value": "",
+              "scope": "local",
+              "name": "organizationName",
+              "type": "datatype.string",
+              "is_required": false,
+              "display_on_wizard": false,
+              "is_invisible": false,
+              "variable_string_format": ""
+            },
+            "unique_name": "variable_workflow_02ZFESAYYHASP3lrxkk4JntkZ6sQoJxutA1",
+            "object_type": "variable_workflow"
+          },
+          {
+            "schema_id": "datatype.string",
+            "properties": {
+              "value": "175778",
+              "scope": "local",
+              "name": "organizationId",
+              "type": "datatype.string",
+              "is_required": false,
+              "display_on_wizard": false,
+              "is_invisible": false,
+              "variable_string_format": ""
+            },
+            "unique_name": "variable_workflow_02ZFESAYYGV0M3xYHqyB8DMClTJfZmmoM2a",
+            "object_type": "variable_workflow"
+          }
+        ],
+        "properties": {
+          "atomic": {
+            "is_atomic": false
+          },
+          "delete_workflow_instance": false,
+          "description": "Meraki Select Organization\n",
+          "display_name": "Meraki Choose Organization",
+          "runtime_user": {
+            "target_default": true
+          },
+          "target": {
+            "target_type": "meraki.endpoint",
+            "target_id": "definition_target_02YLR8ZFIXRC45RODbqQ3jlhVKa5EJkpjCI",
+            "execute_on_workflow_target": true
+          }
+        },
+        "object_type": "definition_workflow",
+        "actions": [
+          {
+            "unique_name": "definition_activity_02ZFESB36TQ2R4oRw5mKi1wJOyXRM448xtD",
+            "name": "Meraki - Get Organizations",
+            "title": "Meraki - Get Organizations",
+            "type": "workflow.atomic_workflow",
+            "base_type": "subworkflow",
+            "properties": {
+              "atomic": {
+                "atomic_group": "Cisco Meraki",
+                "atomic_subgroup": "Organizations"
+              },
+              "description": "**Cisco Meraki - Get Organizations**\nRetrieve a list of organizations that the authenticated user has access to within their Meraki account. \nAn organization in Meraki represents a logical grouping of networks, devices, and settings that can be managed collectively.\n\n**Target:** A Meraki Endpoint using HTTPS \"api.meraki.com\" port 443 and no path.\n\n**Account Key:** Meraki User API Key. API Key can be generated from Meraki Dashboard -> User Profile -> API Access.",
+              "display_name": "Meraki - Get Organizations",
+              "input": {
+                "variable_workflow_02LXK9KUOD0MH4qj4j062vm12gYmFb9y5N0": 100,
+                "variable_workflow_02LXKBG6HGMSD1YojnHQ3bM2cT6mP8A02A9": "",
+                "variable_workflow_02LXKCCX4AREX6odSHkvY5oECunJtqcLahK": ""
+              },
+              "runtime_user": {
+                "target_default": true
+              },
+              "target": {
+                "target_type": "meraki.endpoint",
+                "use_workflow_target": true
+              },
+              "workflow_id": "definition_workflow_02LV5GIDUTY3X0WhuidM5ZWhkjL8wQCGAPq",
+              "workflow_name": "Meraki - Get Organizations"
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFESB6JMW7I39vsK74mdvgYrNQkpNTs73",
+            "name": "JSONPath Query",
+            "title": "Parse List of Org IDs",
+            "type": "corejava.jsonpathquery",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "continue_on_failure": false,
+              "description": "JSONPath Query to get value in JSON",
+              "display_name": "Parse List of Org IDs",
+              "input_json": "$activity.definition_activity_02ZFESB36TQ2R4oRw5mKi1wJOyXRM448xtD.output.variable_workflow_02LXKZA6725S35QBWMZCg1AlZnT11mbSFQi$",
+              "jsonpath_queries": [
+                {
+                  "default_value": "",
+                  "jsonpath_query": "$[*].name",
+                  "jsonpath_query_name": "orgs",
+                  "jsonpath_query_type": "array",
+                  "set_default_value": false,
+                  "zdate_type_format": "yyyy-MM-dd'T'HH:mm:ssZ"
+                }
+              ],
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFESBA0IDR81JbfDMG8UDlZioe9NFbho9",
+            "name": "Set Variables",
+            "title": "Set Org List",
+            "type": "core.set_multiple_variables",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "description": "Set Variables",
+              "display_name": "Set Org List",
+              "skip_execution": false,
+              "variables_to_update": [
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02ZFESAYI8M3W76oM7GOSSLAlON45p6ALHy.local.variable_workflow_02ZFESAYYGPVM6kShIUgpG0l5o1K7qtkY3S$",
+                  "variable_value_new": "$activity.definition_activity_02ZFESB6JMW7I39vsK74mdvgYrNQkpNTs73.output.jsonpath_queries.orgs$"
+                }
+              ]
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFESBD8XP163eC5jsphjaxhicHLIWi6rk",
+            "name": "Create Prompt",
+            "title": "Choose Organization",
+            "type": "task.prompt_request",
+            "base_type": "activity",
+            "properties": {
+              "assignee_roles": [
+                "admin"
+              ],
+              "assignees": [
+                "$workflow.definition_workflow_02ZFESAYI8M3W76oM7GOSSLAlON45p6ALHy.output.started_by$"
+              ],
+              "continue_on_failure": false,
+              "description": "Create Prompt Request",
+              "display_name": "Choose Organization",
+              "expiration_date": {
+                "is_relative_time": true,
+                "relative_time": {
+                  "duration": 72,
+                  "time_units": "hours"
+                }
+              },
+              "form_elements": [
+                {
+                  "allow_multiselect": false,
+                  "form_element": "select",
+                  "form_label": "Organization Name",
+                  "form_option_label_key": "",
+                  "form_source_array": "$workflow.definition_workflow_02ZFESAYI8M3W76oM7GOSSLAlON45p6ALHy.local.variable_workflow_02ZFESAYYGPVM6kShIUgpG0l5o1K7qtkY3S$"
+                }
+              ],
+              "prompt_body": "Select Organization",
+              "prompt_title": "Choose Organization",
+              "skip_execution": false,
+              "task_owner": "$workflow.definition_workflow_02ZFESAYI8M3W76oM7GOSSLAlON45p6ALHy.output.started_by$",
+              "task_requestor": "$workflow.definition_workflow_02ZFESAYI8M3W76oM7GOSSLAlON45p6ALHy.output.started_by$",
+              "wait_for_prompt_response": true
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFESBGYHRG04CLhsurAXLJ6Tr56bhYhjk",
+            "name": "Set Variables",
+            "title": "Set Org",
+            "type": "core.set_multiple_variables",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "description": "Set Variables",
+              "display_name": "Set Org",
+              "skip_execution": false,
+              "variables_to_update": [
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02ZFESAYI8M3W76oM7GOSSLAlON45p6ALHy.local.variable_workflow_02ZFESAYYHASP3lrxkk4JntkZ6sQoJxutA1$",
+                  "variable_value_new": "$activity.definition_activity_02ZFESBD8XP163eC5jsphjaxhicHLIWi6rk.output.prompt_response.Organization Name$"
+                }
+              ]
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFESBK6JEG803KlYAfwwTKASllIKdjmy5",
+            "name": "JSONPath Query",
+            "title": "Parse Org ID",
+            "type": "corejava.jsonpathquery",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "continue_on_failure": false,
+              "description": "JSONPath Query to get value in JSON",
+              "display_name": "Parse Org ID",
+              "input_json": "$activity.definition_activity_02ZFESB36TQ2R4oRw5mKi1wJOyXRM448xtD.output.variable_workflow_02LXKZA6725S35QBWMZCg1AlZnT11mbSFQi$",
+              "jsonpath_queries": [
+                {
+                  "default_value": "",
+                  "jsonpath_query": "$[?(@.name==\"$workflow.definition_workflow_02ZFESAYI8M3W76oM7GOSSLAlON45p6ALHy.local.variable_workflow_02ZFESAYYHASP3lrxkk4JntkZ6sQoJxutA1$\")].id",
+                  "jsonpath_query_name": "orgId",
+                  "jsonpath_query_type": "string",
+                  "set_default_value": false,
+                  "zdate_type_format": "yyyy-MM-dd'T'HH:mm:ssZ"
+                }
+              ],
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFESBNKVE0V6jA7J5FsMeqbIOlj7lj1bU",
+            "name": "Set Variables",
+            "title": "Set Org ID",
+            "type": "core.set_multiple_variables",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "description": "Set Variables",
+              "display_name": "Set Org ID",
+              "skip_execution": false,
+              "variables_to_update": [
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02ZFESAYI8M3W76oM7GOSSLAlON45p6ALHy.local.variable_workflow_02ZFESAYYGV0M3xYHqyB8DMClTJfZmmoM2a$",
+                  "variable_value_new": "$activity.definition_activity_02ZFESBK6JEG803KlYAfwwTKASllIKdjmy5.output.jsonpath_queries.orgId$"
+                },
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02ZFESAYI8M3W76oM7GOSSLAlON45p6ALHy.output.variable_workflow_02ZFFGHM3B3M14yUB3CzI2x1XJBBabiioId$",
+                  "variable_value_new": "$activity.definition_activity_02ZFESBK6JEG803KlYAfwwTKASllIKdjmy5.output.jsonpath_queries.orgId$"
+                },
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02ZFESAYI8M3W76oM7GOSSLAlON45p6ALHy.output.workflow_results$",
+                  "variable_value_new": "$activity.definition_activity_02ZFESBK6JEG803KlYAfwwTKASllIKdjmy5.output.jsonpath_queries.orgId$"
+                }
+              ]
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFESD9YTVPE4ccGe7dodt5HyxdPvO5N2o",
+            "name": "Completed",
+            "title": "Completed",
+            "type": "logic.completed",
+            "base_type": "activity",
+            "properties": {
+              "completion_type": "succeeded",
+              "continue_on_failure": false,
+              "description": "Completed action",
+              "display_name": "Completed",
+              "result_message": "$workflow.definition_workflow_02ZFESAYI8M3W76oM7GOSSLAlON45p6ALHy.local.variable_workflow_02ZFESAYYGV0M3xYHqyB8DMClTJfZmmoM2a$",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          }
+        ],
+        "categories": [
+          "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
+        ],
+        "metadata": {
+          "ui_metadata": {
+            "variable_order": {
+              "export": {
+                "outputs": [
+                  "variable_workflow_02ZFFGHM3B3M14yUB3CzI2x1XJBBabiioId"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "atomic_workflows": [
+        "definition_workflow_02LV5GIDUTY3X0WhuidM5ZWhkjL8wQCGAPq"
+      ],
+      "dependent_workflows": [
+        "definition_workflow_02LV5GIDUTY3X0WhuidM5ZWhkjL8wQCGAPq"
+      ]
+    },
+    {
+      "workflow": {
+        "unique_name": "definition_workflow_02ZFFYZEWBVTL4nt4Qp9du17wqYTQp2elPD",
+        "name": "Meraki Choose Network",
+        "title": "Meraki Choose Network",
+        "type": "generic.workflow",
+        "base_type": "workflow",
+        "variables": [
+          {
+            "schema_id": "datatype.string",
+            "properties": {
+              "value": "",
+              "scope": "local",
+              "name": "networkName",
+              "type": "datatype.string",
+              "is_required": false,
+              "display_on_wizard": false,
+              "is_invisible": false,
+              "variable_string_format": ""
+            },
+            "unique_name": "variable_workflow_02ZFFYZFFE7I35Me5NfzjUj1G6L7yxnfRg4",
+            "object_type": "variable_workflow"
+          },
+          {
+            "schema_id": "datatype.string",
+            "properties": {
+              "value": "",
+              "scope": "local",
+              "name": "networkId",
+              "type": "datatype.string",
+              "is_required": false,
+              "display_on_wizard": false,
+              "is_invisible": false,
+              "variable_string_format": ""
+            },
+            "unique_name": "variable_workflow_02ZFFYZFFECWO07JAl2gj3IJhMYoscqedFw",
+            "object_type": "variable_workflow"
+          },
+          {
+            "schema_id": "datatype.string",
+            "properties": {
+              "value": "",
+              "scope": "output",
+              "name": "netId",
+              "type": "datatype.string",
+              "is_required": false,
+              "display_on_wizard": false,
+              "is_invisible": false,
+              "variable_string_format": ""
+            },
+            "unique_name": "variable_workflow_02ZFFYZFFDYCZ63cRvwheWjjJ12f55DRgTY",
+            "object_type": "variable_workflow"
+          },
+          {
+            "schema_id": "variable_type_array_01JhSTW61I3ZU2IfL7dwQox83eFDzE1qUiA",
+            "properties": {
+              "value": [],
+              "scope": "local",
+              "name": "networkList",
+              "type": "datatype.array",
+              "is_required": false,
+              "display_on_wizard": false,
+              "is_invisible": false,
+              "variable_string_format": ""
+            },
+            "unique_name": "variable_workflow_02ZFFYZFFDTPN39RWPJ8KpoGxzJAkslXo6w",
+            "object_type": "variable_workflow"
+          },
+          {
+            "schema_id": "datatype.string",
+            "properties": {
+              "value": "175778",
+              "scope": "input",
+              "name": "organizationId",
+              "type": "datatype.string",
+              "is_required": true,
+              "display_on_wizard": false,
+              "is_invisible": false,
+              "variable_string_format": ""
+            },
+            "unique_name": "variable_workflow_02ZFFYZFFE2SO4Q6xptRqB4IcnAyuJ7Cvok",
+            "object_type": "variable_workflow"
+          }
+        ],
+        "properties": {
+          "atomic": {
+            "is_atomic": false
+          },
+          "delete_workflow_instance": false,
+          "description": "Meraki Select Network\n",
+          "display_name": "Meraki Choose Network",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "specify_on_workflow_start": false,
+            "target_default": true
+          },
+          "target": {
+            "target_type": "meraki.endpoint",
+            "target_id": "definition_target_02YLR8ZFIXRC45RODbqQ3jlhVKa5EJkpjCI",
+            "execute_on_workflow_target": true
+          }
+        },
+        "object_type": "definition_workflow",
+        "actions": [
+          {
+            "unique_name": "definition_activity_02ZFFYZW8X61X0zG4vNWmAuzQ6mvhoMyKm5",
+            "name": "Meraki - Get Organization Networks",
+            "title": "Meraki - Get Organization Networks",
+            "type": "workflow.atomic_workflow",
+            "base_type": "subworkflow",
+            "properties": {
+              "atomic": {
+                "atomic_group": "Cisco Meraki",
+                "atomic_subgroup": "Networks"
+              },
+              "continue_on_failure": false,
+              "description": "**Cisco Meraki - Networks - Get Organization Networks**\n\nList the networks that the user has privileges on in an organization\n\n**Target:** A Meraki Endpoint using HTTPS \"api.meraki.com\" port 443 and no path.\n\n**Account Key:** Meraki User API Key. API Key can be generated from Meraki Dashboard -> User Profile -> API Access.\n\nSteps:\n[] Sends Get Network request to Meraki\n[] Check if the request was successful:\n[]> If it was, attempt to extract the results and set the output variables\n[]> If it wasn't, return the error and marks the workflow as failed.\n\nNOTE: Empty attributes in the request are removed from the payload before sending to Meraki. \n\nMore information about this API: https://developer.cisco.com/meraki/api-v1/get-organization-networks/",
+              "display_name": "Meraki - Get Organization Networks",
+              "input": {
+                "variable_workflow_02L9TZH6C81473IDtFQ0NIzW3jmXrgchtN9": "$workflow.definition_workflow_02ZFFYZEWBVTL4nt4Qp9du17wqYTQp2elPD.input.variable_workflow_02ZFFYZFFE2SO4Q6xptRqB4IcnAyuJ7Cvok$",
+                "variable_workflow_02LEUL5GOHN9T53T7jFQx3T2Yo04p5Xuz0r": false,
+                "variable_workflow_02LNK5WW0RD2A20mG7v1G7gsyE2N2RrKdQd": "",
+                "variable_workflow_02LNK5WW0RTCB1AXbOwJOBVWvUx1wdyKtkt": "withAnyTags",
+                "variable_workflow_02LNK5WW0S5E21Q9biFSXTiLbHr7cWP2K7y": "",
+                "variable_workflow_02LNK5WW0SE2H1zmchhUHyfX7L0XGvKmB7W": 1000,
+                "variable_workflow_02LNK5WW0SM7R5SjIvnnytN6vYzR7wfDHeE": [],
+                "variable_workflow_02LNK5WW0STMX38BXiY2IvPQoHQliJHSCgE": [],
+                "variable_workflow_02LNK5WW0T0NX26NyApdlTn355uYJwcQGqW": "",
+                "variable_workflow_02LNK5WW0T92U1HJd1sxzFrmVvwxy7NVaQn": ""
+              },
+              "runtime_user": {
+                "target_default": true
+              },
+              "skip_execution": false,
+              "target": {
+                "target_type": "meraki.endpoint",
+                "use_workflow_target": true
+              },
+              "workflow_id": "definition_workflow_02L9TZH5W95870XebPF2g8kSyIYcawUvljX",
+              "workflow_name": "Meraki - Get Organization Networks"
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFFYZXV83BG1fojnbfr3GzLFnoBDJeamu",
+            "name": "JSONPath Query",
+            "title": "Parse List of Network IDs",
+            "type": "corejava.jsonpathquery",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "continue_on_failure": false,
+              "description": "JSONPath Query to get value in JSON",
+              "display_name": "Parse List of Network IDs",
+              "input_json": "$activity.definition_activity_02ZFFYZW8X61X0zG4vNWmAuzQ6mvhoMyKm5.output.variable_workflow_02L9TZH6C8OZI7c9t9Z0h0JHAbqCc7LuTGT$",
+              "jsonpath_queries": [
+                {
+                  "default_value": "",
+                  "jsonpath_query": "$[*].name",
+                  "jsonpath_query_name": "networks",
+                  "jsonpath_query_type": "array",
+                  "set_default_value": false,
+                  "zdate_type_format": "yyyy-MM-dd'T'HH:mm:ssZ"
+                }
+              ],
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFFYZZL036S0YaaC8FE4xLt5uPgb70BhN",
+            "name": "Set Variables",
+            "title": "Set Network List",
+            "type": "core.set_multiple_variables",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "description": "Set Variables",
+              "display_name": "Set Network List",
+              "skip_execution": false,
+              "variables_to_update": [
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02ZFFYZEWBVTL4nt4Qp9du17wqYTQp2elPD.local.variable_workflow_02ZFFYZFFDTPN39RWPJ8KpoGxzJAkslXo6w$",
+                  "variable_value_new": "$activity.definition_activity_02ZFFYZXV83BG1fojnbfr3GzLFnoBDJeamu.output.jsonpath_queries.networks$"
+                }
+              ]
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFFZ010EG5G1oBSOTJrv5jdcldDbxFool",
+            "name": "Create Prompt",
+            "title": "Choose Network",
+            "type": "task.prompt_request",
+            "base_type": "activity",
+            "properties": {
+              "assignee_roles": [
+                "admin"
+              ],
+              "assignees": [
+                "$workflow.definition_workflow_02ZFFYZEWBVTL4nt4Qp9du17wqYTQp2elPD.output.started_by$"
+              ],
+              "continue_on_failure": false,
+              "description": "Create Prompt Request",
+              "display_name": "Choose Network",
+              "expiration_date": {
+                "is_relative_time": true,
+                "relative_time": {
+                  "duration": 72,
+                  "time_units": "hours"
+                }
+              },
+              "form_elements": [
+                {
+                  "allow_multiselect": false,
+                  "form_element": "select",
+                  "form_label": "Network Name",
+                  "form_option_label_key": "",
+                  "form_source_array": "$workflow.definition_workflow_02ZFFYZEWBVTL4nt4Qp9du17wqYTQp2elPD.local.variable_workflow_02ZFFYZFFDTPN39RWPJ8KpoGxzJAkslXo6w$"
+                }
+              ],
+              "prompt_body": "Select Network",
+              "prompt_title": "Choose Network",
+              "skip_execution": false,
+              "task_owner": "$workflow.definition_workflow_02ZFFYZEWBVTL4nt4Qp9du17wqYTQp2elPD.output.started_by$",
+              "task_requestor": "$workflow.definition_workflow_02ZFFYZEWBVTL4nt4Qp9du17wqYTQp2elPD.output.started_by$",
+              "wait_for_prompt_response": true
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFFZ02RFIZ57WRC0WVsuZviOZrr48OAhG",
+            "name": "Set Variables",
+            "title": "Set Network",
+            "type": "core.set_multiple_variables",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "description": "Set Variables",
+              "display_name": "Set Network",
+              "skip_execution": false,
+              "variables_to_update": [
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02ZFFYZEWBVTL4nt4Qp9du17wqYTQp2elPD.local.variable_workflow_02ZFFYZFFE7I35Me5NfzjUj1G6L7yxnfRg4$",
+                  "variable_value_new": "$activity.definition_activity_02ZFFZ010EG5G1oBSOTJrv5jdcldDbxFool.output.prompt_response.Network Name$"
+                }
+              ]
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFFZ048OUUK2RCgco8RbM8LppRjcuriZU",
+            "name": "JSONPath Query",
+            "title": "Parse Network ID",
+            "type": "corejava.jsonpathquery",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "continue_on_failure": false,
+              "description": "JSONPath Query to get value in JSON",
+              "display_name": "Parse Network ID",
+              "input_json": "$activity.definition_activity_02ZFFYZW8X61X0zG4vNWmAuzQ6mvhoMyKm5.output.variable_workflow_02L9TZH6C8OZI7c9t9Z0h0JHAbqCc7LuTGT$",
+              "jsonpath_queries": [
+                {
+                  "default_value": "",
+                  "jsonpath_query": "$[?(@.name==\"$workflow.definition_workflow_02ZFFYZEWBVTL4nt4Qp9du17wqYTQp2elPD.local.variable_workflow_02ZFFYZFFE7I35Me5NfzjUj1G6L7yxnfRg4$\")].id",
+                  "jsonpath_query_name": "networkId",
+                  "jsonpath_query_type": "string",
+                  "set_default_value": false,
+                  "zdate_type_format": "yyyy-MM-dd'T'HH:mm:ssZ"
+                }
+              ],
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFFZ065YL660SYUTHT6ZLm8NmQ19AQ6bN",
+            "name": "Set Variables",
+            "title": "Set Network ID",
+            "type": "core.set_multiple_variables",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "description": "Set Variables",
+              "display_name": "Set Network ID",
+              "skip_execution": false,
+              "variables_to_update": [
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02ZFFYZEWBVTL4nt4Qp9du17wqYTQp2elPD.local.variable_workflow_02ZFFYZFFECWO07JAl2gj3IJhMYoscqedFw$",
+                  "variable_value_new": "$activity.definition_activity_02ZFFZ048OUUK2RCgco8RbM8LppRjcuriZU.output.jsonpath_queries.networkId$"
+                },
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02ZFFYZEWBVTL4nt4Qp9du17wqYTQp2elPD.output.variable_workflow_02ZFFYZFFDYCZ63cRvwheWjjJ12f55DRgTY$",
+                  "variable_value_new": "$activity.definition_activity_02ZFFZ048OUUK2RCgco8RbM8LppRjcuriZU.output.jsonpath_queries.networkId$"
+                },
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02ZFFYZEWBVTL4nt4Qp9du17wqYTQp2elPD.output.workflow_results$",
+                  "variable_value_new": "$activity.definition_activity_02ZFFZ048OUUK2RCgco8RbM8LppRjcuriZU.output.jsonpath_queries.networkId$"
+                }
+              ]
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFFZ07VB3XQ1umTskHxMPtbftj70aMGe0",
+            "name": "Completed",
+            "title": "Completed",
+            "type": "logic.completed",
+            "base_type": "activity",
+            "properties": {
+              "completion_type": "succeeded",
+              "continue_on_failure": false,
+              "description": "Completed action",
+              "display_name": "Completed",
+              "result_message": "$workflow.definition_workflow_02ZFFYZEWBVTL4nt4Qp9du17wqYTQp2elPD.local.variable_workflow_02ZFFYZFFE2SO4Q6xptRqB4IcnAyuJ7Cvok$",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          }
+        ],
+        "categories": [
+          "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
+        ],
+        "metadata": {
+          "ui_metadata": {
+            "variable_order": {
+              "export": {
+                "inputs": [
+                  "variable_workflow_02ZFFYZFFE2SO4Q6xptRqB4IcnAyuJ7Cvok"
+                ],
+                "outputs": [
+                  "variable_workflow_02ZFFYZFFDYCZ63cRvwheWjjJ12f55DRgTY"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "atomic_workflows": [
+        "definition_workflow_02L9TZH5W95870XebPF2g8kSyIYcawUvljX"
+      ],
+      "dependent_workflows": [
+        "definition_workflow_02L9TZH5W95870XebPF2g8kSyIYcawUvljX"
+      ]
+    },
+    {
+      "workflow": {
+        "unique_name": "definition_workflow_02ZFG532FNFRD3SSKDxPQdzDCphhEMvLZ0U",
+        "name": "Meraki Choose Device",
+        "title": "Meraki Choose Device",
+        "type": "generic.workflow",
+        "base_type": "workflow",
+        "variables": [
+          {
+            "schema_id": "datatype.string",
+            "properties": {
+              "value": "175778",
+              "scope": "input",
+              "name": "organizationId",
+              "type": "datatype.string",
+              "is_required": false,
+              "display_on_wizard": false,
+              "is_invisible": false,
+              "variable_string_format": ""
+            },
+            "unique_name": "variable_workflow_02ZFG5332DR7D0oDBKUOWcuhHmV5pGjGv4k",
+            "object_type": "variable_workflow"
+          },
+          {
+            "schema_id": "datatype.string",
+            "properties": {
+              "value": "",
+              "scope": "local",
+              "name": "switch",
+              "type": "datatype.string",
+              "is_required": false,
+              "display_on_wizard": false,
+              "is_invisible": false,
+              "variable_string_format": ""
+            },
+            "unique_name": "variable_workflow_02ZFG5332DDX32lWrehHIgJDYofK1CWtD6l",
+            "object_type": "variable_workflow"
+          },
+          {
+            "schema_id": "datatype.string",
+            "properties": {
+              "value": "",
+              "scope": "output",
+              "name": "switchSerial",
+              "type": "datatype.string",
+              "is_required": false,
+              "display_on_wizard": false,
+              "is_invisible": false,
+              "variable_string_format": ""
+            },
+            "unique_name": "variable_workflow_02ZFHNJ7SQDSM1ojSPnNl0UkLriDMMZINIS",
+            "object_type": "variable_workflow"
+          },
+          {
+            "schema_id": "variable_type_array_01JhSTW61I3ZU2IfL7dwQox83eFDzE1qUiA",
+            "properties": {
+              "value": [],
+              "scope": "local",
+              "name": "switchList",
+              "type": "datatype.array",
+              "is_required": false,
+              "display_on_wizard": false,
+              "is_invisible": false,
+              "variable_string_format": ""
+            },
+            "unique_name": "variable_workflow_02ZFG5332CXN86Q8lr8Ibl84XOlfjtrZhWD",
+            "object_type": "variable_workflow"
+          }
+        ],
+        "properties": {
+          "atomic": {
+            "is_atomic": false
+          },
+          "delete_workflow_instance": false,
+          "description": "Meraki Device Config Importer\n\nThis imports a config from Meraki\nand prepares it.\n\nCurrently requires API Key and NFO",
+          "display_name": "Meraki Choose Device",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "specify_on_workflow_start": false,
+            "target_default": true
+          },
+          "target": {
+            "target_type": "meraki.endpoint",
+            "target_id": "definition_target_02YLR8ZFIXRC45RODbqQ3jlhVKa5EJkpjCI",
+            "execute_on_workflow_target": true
+          }
+        },
+        "object_type": "definition_workflow",
+        "actions": [
+          {
+            "unique_name": "definition_activity_02ZFG53J8R27Y2sCuEKba6UurhZtjGPrymg",
+            "name": "Meraki - Get Organization Inventory Devices",
+            "title": "Meraki - Get Organization Inventory Devices",
+            "type": "workflow.atomic_workflow",
+            "base_type": "subworkflow",
+            "properties": {
+              "atomic": {
+                "atomic_group": "Cisco Meraki",
+                "atomic_subgroup": "Organizations"
+              },
+              "continue_on_failure": false,
+              "description": "The endpoint is used to retrieve a list of all devices within an organization's inventory in the Meraki dashboard. This endpoint provides an overview of all devices, including essential details needed for management and monitoring.",
+              "display_name": "Meraki - Get Organization Inventory Devices",
+              "input": {
+                "variable_workflow_02LUCBA9C3FDC63QYiH2q50wIWQlmOOdJn7": "$workflow.definition_workflow_02ZFG532FNFRD3SSKDxPQdzDCphhEMvLZ0U.input.variable_workflow_02ZFG5332DR7D0oDBKUOWcuhHmV5pGjGv4k$",
+                "variable_workflow_02P699G3IU8MW1lsDQIEOQAkv9asbwKXTo8": "",
+                "variable_workflow_02P699G3IU9EO4c17PKPOh91kwYKHVLFHst": "",
+                "variable_workflow_02P699G3IUA6G0rgjL0hzZXLViubdr09es9": "",
+                "variable_workflow_02P699G3IUAY80GOgjHeDQ20VzurzKR7Ypy": "",
+                "variable_workflow_02P699G3IUBQ05w5Z9XbcwN8ArZmhScA0Wh": "",
+                "variable_workflow_02P699G3IUCHS1xf99Rk8NCnqrqnFs7IGRf": "[]",
+                "variable_workflow_02P699G3IUCHS2FB5yryMSr3iLaMG0X0eSn": "[]",
+                "variable_workflow_02P699G3IUE1C2YB3uqFo3rSvlT41vu0f0A": "[]",
+                "variable_workflow_02P699G3IUET44XsL70Wj3z0BMcsinoxTK6": "[]",
+                "variable_workflow_02P699G3IUGCO5wR0f4xa5VbmIPYovrdQH6": "[]",
+                "variable_workflow_02P699G3IUH4G36BwnDY101aFxpzCyDWo0x": "[]",
+                "variable_workflow_02P699G3IUHW86U4oPeAWVZdEtyPADmxfaj": "",
+                "variable_workflow_02P699G3IUIO063KzhcmTFe3g3KXQXUZcI6": "[]",
+                "variable_workflow_02VJN43IBWQ1K2EtFFdl3ExBXIEpjUmZnHU": "[]",
+                "variable_workflow_02VJN43IBX1M825sx6hE1Pm9fhtzgQadMno": ""
+              },
+              "runtime_user": {
+                "target_default": true
+              },
+              "skip_execution": false,
+              "target": {
+                "target_type": "meraki.endpoint",
+                "use_workflow_target": true
+              },
+              "workflow_id": "definition_workflow_02LUCBA9C3DTS1D3tCV97uOo3pjNcArMZKo",
+              "workflow_name": "Meraki - Get Organization Inventory Devices"
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFG53KYSRW264IYMDSDBDAYGW9N9u61BP",
+            "name": "JSONPath Query",
+            "title": "Parse Switch List",
+            "type": "corejava.jsonpathquery",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "continue_on_failure": false,
+              "description": "JSONPath Query to get value in JSON",
+              "display_name": "Parse Switch List",
+              "input_json": "$activity.definition_activity_02ZFG53J8R27Y2sCuEKba6UurhZtjGPrymg.output.variable_workflow_02LUCBA9C3HOO0OnSKkPwTwZQlw9Zb4I2jd$",
+              "jsonpath_queries": [
+                {
+                  "default_value": "",
+                  "jsonpath_query": "$[?(@.productType=='switch')].name",
+                  "jsonpath_query_name": "switches",
+                  "jsonpath_query_type": "array",
+                  "set_default_value": false,
+                  "zdate_type_format": "yyyy-MM-dd'T'HH:mm:ssZ"
+                }
+              ],
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFG53MPB1M808Hr0TOF0YXE1z4S81U5AF",
+            "name": "Set Variables",
+            "title": "Set Switch List",
+            "type": "core.set_multiple_variables",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": true,
+              "description": "Set Variables",
+              "display_name": "Set Switch List",
+              "skip_execution": false,
+              "variables_to_update": [
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02ZFG532FNFRD3SSKDxPQdzDCphhEMvLZ0U.local.variable_workflow_02ZFG5332CXN86Q8lr8Ibl84XOlfjtrZhWD$",
+                  "variable_value_new": "$activity.definition_activity_02ZFG53KYSRW264IYMDSDBDAYGW9N9u61BP.output.jsonpath_queries.switches$"
+                }
+              ]
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFG53O658X72owLI4Fd48KotWzM4hYAWu",
+            "name": "Create Prompt",
+            "title": "Choose Switch",
+            "type": "task.prompt_request",
+            "base_type": "activity",
+            "properties": {
+              "assignee_roles": [
+                "admin"
+              ],
+              "assignees": [
+                "$workflow.definition_workflow_02ZFG532FNFRD3SSKDxPQdzDCphhEMvLZ0U.output.started_by$"
+              ],
+              "continue_on_failure": false,
+              "description": "Create Prompt Request",
+              "display_name": "Choose Switch",
+              "expiration_date": {
+                "is_relative_time": true,
+                "relative_time": {
+                  "duration": 72,
+                  "time_units": "hours"
+                }
+              },
+              "form_elements": [
+                {
+                  "allow_multiselect": false,
+                  "form_element": "select",
+                  "form_label": "Switch",
+                  "form_source_array": "$workflow.definition_workflow_02ZFG532FNFRD3SSKDxPQdzDCphhEMvLZ0U.local.variable_workflow_02ZFG5332CXN86Q8lr8Ibl84XOlfjtrZhWD$"
+                }
+              ],
+              "prompt_body": "Select a switch?",
+              "prompt_title": "Choose Switch",
+              "skip_execution": false,
+              "task_owner": "$workflow.definition_workflow_02ZFG532FNFRD3SSKDxPQdzDCphhEMvLZ0U.output.started_by$",
+              "task_requestor": "$workflow.definition_workflow_02ZFG532FNFRD3SSKDxPQdzDCphhEMvLZ0U.output.started_by$",
+              "wait_for_prompt_response": true
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFG53PXY4OQ710VLORGYNVPHe0geNa9zl",
+            "name": "Set Variables",
+            "title": "Set Switch Name",
+            "type": "core.set_multiple_variables",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": true,
+              "description": "Set Variables",
+              "display_name": "Set Switch Name",
+              "skip_execution": false,
+              "variables_to_update": [
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02ZFG532FNFRD3SSKDxPQdzDCphhEMvLZ0U.local.variable_workflow_02ZFG5332DDX32lWrehHIgJDYofK1CWtD6l$",
+                  "variable_value_new": "$activity.definition_activity_02ZFG53O658X72owLI4Fd48KotWzM4hYAWu.output.prompt_response.Switch$"
+                }
+              ]
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFG53REQSTI4AHnYINtOXJbRrBWxFmLFQ",
+            "name": "JSONPath Query",
+            "title": "Parse Switch Serial",
+            "type": "corejava.jsonpathquery",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "continue_on_failure": true,
+              "description": "JSONPath Query to get value in JSON",
+              "display_name": "Parse Switch Serial",
+              "input_json": "$activity.definition_activity_02ZFG53J8R27Y2sCuEKba6UurhZtjGPrymg.output.variable_workflow_02LUCBA9C3HOO0OnSKkPwTwZQlw9Zb4I2jd$",
+              "jsonpath_queries": [
+                {
+                  "default_value": "",
+                  "jsonpath_query": "$[?(@.name=='$workflow.definition_workflow_02ZFG532FNFRD3SSKDxPQdzDCphhEMvLZ0U.local.variable_workflow_02ZFG5332DDX32lWrehHIgJDYofK1CWtD6l$')].serial",
+                  "jsonpath_query_name": "serial",
+                  "jsonpath_query_type": "string",
+                  "set_default_value": false,
+                  "zdate_type_format": "yyyy-MM-dd'T'HH:mm:ssZ"
+                },
+                {
+                  "jsonpath_query": "$[?(@.name=='$workflow.definition_workflow_02ZFG532FNFRD3SSKDxPQdzDCphhEMvLZ0U.local.variable_workflow_02ZFG5332DDX32lWrehHIgJDYofK1CWtD6l$')].networkId",
+                  "jsonpath_query_name": "networkId",
+                  "jsonpath_query_type": "string",
+                  "set_default_value": false,
+                  "zdate_type_format": "yyyy-MM-dd'T'HH:mm:ssZ"
+                }
+              ],
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFHMSU3CMSH4c4f3OR7Po7Mqmz9jqXAmh",
+            "name": "Set Variables",
+            "title": "Set Switch Serial",
+            "type": "core.set_multiple_variables",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "description": "Set Variables",
+              "display_name": "Set Switch Serial",
+              "skip_execution": false,
+              "variables_to_update": [
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02ZFG532FNFRD3SSKDxPQdzDCphhEMvLZ0U.output.variable_workflow_02ZFHNJ7SQDSM1ojSPnNl0UkLriDMMZINIS$",
+                  "variable_value_new": "$activity.definition_activity_02ZFG53REQSTI4AHnYINtOXJbRrBWxFmLFQ.output.jsonpath_queries.serial$"
+                },
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02ZFG532FNFRD3SSKDxPQdzDCphhEMvLZ0U.output.workflow_results$",
+                  "variable_value_new": "$activity.definition_activity_02ZFG53REQSTI4AHnYINtOXJbRrBWxFmLFQ.output.jsonpath_queries.serial$"
+                }
+              ]
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02ZFG546JN04S12UCpgsfOdEojG6FJfqiP1",
+            "name": "Completed",
+            "title": "Completed",
+            "type": "logic.completed",
+            "base_type": "activity",
+            "properties": {
+              "completion_type": "succeeded",
+              "continue_on_failure": false,
+              "description": "Completed action",
+              "display_name": "Completed",
+              "result_message": "$workflow.definition_workflow_02ZFG532FNFRD3SSKDxPQdzDCphhEMvLZ0U.output.workflow_results$",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          }
+        ],
+        "categories": [
+          "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
+        ],
+        "metadata": {
+          "ui_metadata": {
+            "variable_order": {
+              "export": {
+                "inputs": [
+                  "variable_workflow_02ZFG5332DR7D0oDBKUOWcuhHmV5pGjGv4k"
+                ],
+                "outputs": [
+                  "variable_workflow_02ZFHNJ7SQDSM1ojSPnNl0UkLriDMMZINIS"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "atomic_workflows": [
+        "definition_workflow_02LUCBA9C3DTS1D3tCV97uOo3pjNcArMZKo"
+      ],
+      "dependent_workflows": [
+        "definition_workflow_02LUCBA9C3DTS1D3tCV97uOo3pjNcArMZKo"
+      ]
+    }
+  ],
+  "atomic_workflows": [
+    "definition_workflow_02UL94O6YOKWQ7YkeQffWC9EczDKefSDl71",
+    "definition_workflow_02LA3KX0H7UMQ3yyicn2qcUy4gWmF7FBxQq",
+    "definition_workflow_02LUCBAAJK75S1wQ80YFc0rVE0JCyHL9SBK",
+    "definition_workflow_02LLUYO87CIIF2MYkTzJpsPsYYOXZ5MUPA1",
+    "definition_workflow_02OARCF7IHHVK7FdS9y8IRL8g8bkqPQZ7Nw",
+    "definition_workflow_02LLUSYK4J29K0l7bhU4PlTtgMFEdAMaXhi"
+  ],
+  "dependent_workflows": [
+    "definition_workflow_02UL94O6YOKWQ7YkeQffWC9EczDKefSDl71",
+    "definition_workflow_02ZFESAYI8M3W76oM7GOSSLAlON45p6ALHy",
+    "definition_workflow_02ZFFYZEWBVTL4nt4Qp9du17wqYTQp2elPD",
+    "definition_workflow_02ZFG532FNFRD3SSKDxPQdzDCphhEMvLZ0U",
+    "definition_workflow_02LA3KX0H7UMQ3yyicn2qcUy4gWmF7FBxQq",
+    "definition_workflow_02LUCBAAJK75S1wQ80YFc0rVE0JCyHL9SBK",
+    "definition_workflow_02LLUYO87CIIF2MYkTzJpsPsYYOXZ5MUPA1",
+    "definition_workflow_02OARCF7IHHVK7FdS9y8IRL8g8bkqPQZ7Nw",
+    "definition_workflow_02LLUSYK4J29K0l7bhU4PlTtgMFEdAMaXhi"
+  ]
+}
