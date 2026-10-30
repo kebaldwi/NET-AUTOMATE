@@ -399,6 +399,13 @@ Previously within the DayN Module, we introduced a methodology of automatically 
 
 In previous code revisions, we could deal with some of the problems with Auto Smart Port technology, but that has been deprecated, and its replacement is a lot more dynamic. This section will deal with the first part of the problem concerning assigning ports for hardware like Access Points.
 
+The Autoconf methodology allows for dynamic and automated configuration of switch interfaces based on predefined templates and VLAN assignments. It is particularly useful in large-scale deployments where manual configuration would be time-consuming and error-prone. Due to its dynamic nature it can adapt to changes in the network environment without requiring extensive manual intervention. To avoid misconfigurations, it is important to ensure that the templates and VLAN assignments are accurately defined and maintained.
+
+As the network environment evolves, the Autoconf methodology ensures that interface configurations remain consistent and aligned with the defined templates, reducing the risk of human error and improving overall network reliability.
+
+> [!WARNING]
+> :mega: Due to the dynamic nature, it is crucial that prior to enabling Autoconf globally, that any uplink or statically configured interfaces are configured with `access-session inherit disable autoconf` to prevent unintended automatic configurations on these interfaces.
+
 This Autoconf methodology was deployed via template.
 
 <details open>
@@ -516,6 +523,9 @@ They **macros** are as follows
    {% endmacro %}
 ```
 [//]: # ({% endraw %})
+
+> [!WARNING]
+> :mega: Due to the dynamic nature, it is crucial that prior to enabling Autoconf globally, that any uplink or statically configured interfaces are configured with `access-session inherit disable autoconf` to prevent unintended automatic configurations on these interfaces.
 
 Next, we need to set up the macros, but we will make use of **Autoconf** and the **Templates** above. **Autoconf** is a solution that can be used to manage port configurations for data or voice VLAN, quality of service (QoS) parameters, storm control, and MAC-based port security on end devices that are deployed in the access layer of a network. Device classification is enabled when you enable the Autoconf feature using the `autoconf enable` command in global configuration mode. The device detection acts as an event trigger, which applies the appropriate automatic template to the interface. When the Autoconf feature is enabled using the autoconf enable command, the default Autoconf service policy is applied to all the interfaces. For more information about **[Autoconf](https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9400/software/release/16-12/configuration_guide/nmgmt/b_1612_nmgmt_9400_cg/configuring_autoconf.pdf)** or alternatively [Autoconf](../../CODE/DOCS/configuring_autoconf.pdf)
 
