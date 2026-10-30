@@ -406,6 +406,17 @@ As the network environment evolves, the Autoconf methodology ensures that interf
 > [!WARNING]
 > :mega: Due to the dynamic nature, it is crucial that prior to enabling Autoconf globally, that any uplink or statically configured interfaces are configured with `access-session inherit disable autoconf` to prevent unintended automatic configurations on these interfaces.
 
+### Steps to Successfully Deploy Autoconf Templates
+
+The following are a series of steps to successfully deploy Autoconf templates on the network switches utilizing the predefined Jinja2 templates and VLAN assignments.
+
+1. Update the NBAR2 protocol pack to ensure correct device classification
+2. Disable Autoconf on uplink or statically configured interfaces by applying the command `access-session inherit disable autoconf` to prevent unintended automatic configurations.
+3. Deploy the Autoconf templates to the network switches using the predefined Jinja2 templates and VLAN assignments.
+4. Enable the Autoconf configuration globally
+5. Deploy the Parameter Map for the Device Classification
+6. Verify the correct device classification by checking that the interfaces are assigned to the appropriate VLANs and that the device types are correctly identified according to the deployed parameter map.
+
 This Autoconf methodology was deployed via template.
 
 <details open>
