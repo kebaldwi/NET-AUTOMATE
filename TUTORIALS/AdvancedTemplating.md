@@ -34,12 +34,12 @@ The various topics covered in the lab will be the following:
 
 The Topics listed above will be covered in several use cases to show the capability and flexibility of the templating engine within Catalyst Center. While we will utilize Velocity language, the same can be accomplished in the Jinja2 language.
 
-1. [Renaming interfaces](./module6-advanced.md#step-1---renaming-interfaces---use-case)
-2. [Building Stacks](./module6-advanced.md#step-2---building-stacks---use-case)
-3. [Building VLAN configuration](./module6-advanced.md#step-3---building-vlan-databases---use-case)
-4. [Assigning port configuration](./module6-advanced.md#step-4---assigning-port-configuration---use-case)
-5. [Autoconf port configuration](./module6-advanced.md#step-5---autoconf-port-configuration---use-case)
-6. [IBNS 2.0 Port Configuration](./module6-advanced.md#step-6---ibns20-port-configuration---use-case)
+1. [Renaming interfaces](./AdvancedTemplating.md#step-1---renaming-interfaces---use-case)
+2. [Building Stacks](./AdvancedTemplating.md#step-2---building-stacks---use-case)
+3. [Building VLAN configuration](./AdvancedTemplating.md#step-3---building-vlan-databases---use-case)
+4. [Assigning port configuration](./AdvancedTemplating.md#step-4---assigning-port-configuration---use-case)
+5. [Autoconf port configuration](./AdvancedTemplating.md#step-5---autoconf-port-configuration---use-case)
+6. [IBNS 2.0 Port Configuration](./AdvancedTemplating.md#step-6---ibns20-port-configuration---use-case)
 
 ## Step 1 - ***Renaming Interfaces - Use Case***
 
