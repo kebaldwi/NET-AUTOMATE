@@ -26,7 +26,7 @@ This folder holds the Catalyst Center workflow JSON exports used throughout this
 
 Folder: [EXCHANGE/](EXCHANGE/) — see the suite documentation in [EXCHANGE/README.md](EXCHANGE/README.md).
 
-The EXCHANGE folder contains the **twelve-workflow `-v3` production suite** that delivers an end-to-end GitOps build-and-deploy chain for Catalyst Center, plus operations and reusable utility workflows. Every workflow in this folder is **published in Cisco Workflows** — the in-product Workflow Exchange catalog accessed from Catalyst Center under *Platform → Automation → Exchange* — so customers can install them directly from the catalog inside Catalyst Center without manually importing JSON.
+The EXCHANGE folder contains the **twelve-workflow `-v3` production suite** that delivers an end-to-end GitOps build-and-deploy chain for Catalyst Center, plus operations and reusable utility workflows, and two standalone day-2 switch port modifier tools (one for Catalyst Center-managed switches and one for Cisco Meraki cloud-managed switches). Every workflow in this folder is **published in Cisco Workflows** — the in-product Workflow Exchange catalog accessed from Catalyst Center under *Platform → Automation → Exchange* — so customers can install them directly from the catalog inside Catalyst Center without manually importing JSON.
 
 Use cases solved by the EXCHANGE suite:
 
@@ -45,8 +45,10 @@ Use cases solved by the EXCHANGE suite:
 | 10.0 | [Paginated Device Inventory](EXCHANGE/10.0-Cisco-Catayst-Center-Paginated-Device-Inventory/) | Reusable utility — paginate the full device inventory and return a merged, optionally filtered device list. |
 | 11.0 | [Paginated Site Hierarchy](EXCHANGE/11.0-Cisco-Catalyst-Center-Paginated-Site-Hierarchy/) | Reusable utility — paginate the complete site hierarchy and return merged JSON plus name and UUID lists. |
 | 12.0 | [Bulk Command Runner](EXCHANGE/12.0-Cisco-Catalyst-Center-Bulk-Command-Runner/) | Reusable utility — iterate a shared device table, batch show commands in groups of five, and record pre/post-change diagnostics. |
+| 14.0 | [Catalyst Center Switch Port Modifier](EXCHANGE/14.0-Cisco-Catalyst-Center-Switch-Port-Modifier/) | Day-2 operations tool — interactively locate a switch port by client MAC or device/port and modify description, admin status, and/or data/voice VLANs, deploying the change (with optional port bounce on RESET). |
+| 15.0 | [Meraki Switch Port Modifier](EXCHANGE/15.0-Cisco-Meraki-Switch-Port-Modifier/) | Day-2 operations tool — select a Meraki organization / network / switch, verify cloud management, and modify port description, admin status, VLANs, and (access ports) access policy across one or more ports via the Meraki Dashboard API. |
 
-Net outcome: a deterministic, version-controlled, end-to-end build of a Catalyst Center site — from empty hierarchy to provisioned devices with deployed composite templates — plus operational tooling for diagnostics and site-scoped upgrades.
+Net outcome: a deterministic, version-controlled, end-to-end build of a Catalyst Center site — from empty hierarchy to provisioned devices with deployed composite templates — plus operational tooling for diagnostics, site-scoped upgrades, and interactive day-2 switch port changes on both Catalyst Center-managed and Meraki cloud-managed switches.
 
 ---
 

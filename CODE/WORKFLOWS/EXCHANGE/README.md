@@ -4,9 +4,9 @@
 > Authors: Keith Baldwin - Solutions Engineer - Automation HyperSpecialist (kebaldwi@cisco.com)
 > Copyright (c) 2024-2026 Cisco Systems, Inc. All rights reserved.
 
-This document describes the complete Cisco Catalyst Center GitOps workflow suite under this folder. The suite consists of twelve ordered workflows that automate site foundation, settings and credentials, discovery and assignment, template synchronization, composite template construction, profile binding, composite deployment, ad-hoc device CLI diagnostics, site-scoped software upgrades, the paginated inventory/hierarchy utilities that the upgrade pipeline depends on, and the bulk show-command runner that captures pre/post-change diagnostics across many devices.
+This document describes the complete Cisco Catalyst Center GitOps workflow suite under this folder. The suite consists of the twelve ordered GitOps and utility workflows that automate site foundation, settings and credentials, discovery and assignment, template synchronization, composite template construction, profile binding, composite deployment, ad-hoc device CLI diagnostics, site-scoped software upgrades, the paginated inventory/hierarchy utilities that the upgrade pipeline depends on, and the bulk show-command runner that captures pre/post-change diagnostics across many devices. It additionally includes two operational day-2 port-modifier workflows: one for Catalyst Center-managed access switches (14.0) and one for Cisco Meraki cloud-managed switches (15.0).
 
-Workflows 1.0 through 7.0 form the core GitOps build-and-deploy chain. Workflow 8.0 provides ad-hoc CLI read access for verification. Workflow 9.0 orchestrates site-scoped SWIM upgrades, and it consumes the reusable pagination utilities in Workflows 10.0 and 11.0 as well as the bulk command runner in Workflow 12.0.
+Workflows 1.0 through 7.0 form the core GitOps build-and-deploy chain. Workflow 8.0 provides ad-hoc CLI read access for verification. Workflow 9.0 orchestrates site-scoped SWIM upgrades, and it consumes the reusable pagination utilities in Workflows 10.0 and 11.0 as well as the bulk command runner in Workflow 12.0. Workflows 14.0 and 15.0 are standalone, prompt-driven day-2 operations tools for interactive switch port changes and are independent of the GitOps build chain.
 
 ---
 
@@ -29,6 +29,8 @@ Workflows 1.0 through 7.0 form the core GitOps build-and-deploy chain. Workflow 
    - [10.0 - Paginated Device Inventory](#100---paginated-device-inventory)
    - [11.0 - Paginated Site Hierarchy](#110---paginated-site-hierarchy)
    - [12.0 - Bulk Command Runner](#120---bulk-command-runner)
+   - [14.0 - Catalyst Center Switch Port Modifier](#140---catalyst-center-switch-port-modifier)
+   - [15.0 - Meraki Switch Port Modifier](#150---meraki-switch-port-modifier)
 5. [Input Data Sources](#input-data-sources)
 6. [Installation Options](#installation-options)
 7. [Meraki Free Account Setup (Optional Lab On-Ramp)](#meraki-free-account-setup-optional-lab-on-ramp)
@@ -54,6 +56,8 @@ Workflows 1.0 through 7.0 form the core GitOps build-and-deploy chain. Workflow 
 | 10.0 | [Paginated Device Inventory](10.0-Cisco-Catayst-Center-Paginated-Device-Inventory/) | `CATC-PaginatedDeviceInventory.json` | Reusable utility — paginates the full device inventory and returns a merged, optionally filtered device list |
 | 11.0 | [Paginated Site Hierarchy](11.0-Cisco-Catalyst-Center-Paginated-Site-Hierarchy/) | `CATC-PaginatedSiteHierarchy.json` | Reusable utility — paginates the complete site hierarchy and returns merged JSON plus name and UUID lists |
 | 12.0 | [Bulk Command Runner](12.0-Cisco-Catalyst-Center-Bulk-Command-Runner/) | `CATC-MultipleShowCommands.json` | Reusable utility — iterates the shared Device SWIM Inventory table, batches show commands in groups of five, runs them per device via the CLI Poller API, and writes results to the `precheck` or `postcheck` column |
+| 14.0 | [Catalyst Center Switch Port Modifier](14.0-Cisco-Catalyst-Center-Switch-Port-Modifier/) | `Modify CATC Switch Ports.json` | Day-2 operations tool — interactively locates a switch port by client MAC or device/port, then modifies description, admin status, and/or data/voice VLANs and deploys the change (with optional port bounce on RESET) |
+| 15.0 | [Meraki Switch Port Modifier](15.0-Cisco-Meraki-Switch-Port-Modifier/) | `Modify Meraki Switch Ports.json` | Day-2 operations tool — selects a Meraki organization/network/switch, verifies cloud management, then modifies port description, admin status, VLANs, and (access ports) access policy across one or more ports |
 
 ---
 
@@ -284,6 +288,36 @@ Primary outcome:
 Utilization statement:
 - Use this workflow as the reusable diagnostic engine for any change workflow that needs bulk pre/post-check capture across many devices. It is consumed by Workflow 9.0 for SWIM upgrade pre/post-checks and can be called from any parent workflow that populates the shared **Device SWIM Inventory** table.
 
+### 14.0 - Catalyst Center Switch Port Modifier
+
+Workflow folder: [14.0-Cisco-Catalyst-Center-Switch-Port-Modifier](14.0-Cisco-Catalyst-Center-Switch-Port-Modifier/)
+
+Function:
+- Interactively targets one or more access switch ports on a Catalyst Center-managed device, resolved either from a **client** (by MAC address, via client enrichment detail) or directly from a **network device** (by selecting a switch and its interfaces).
+- Collects a composable change set through wizard prompts — description, administrative/operational status, and data and voice VLANs — and assembles the matching interface `PUT` body.
+- Resolves each selected port's interface UUID, applies the change with `deploymentMode=Deploy`, and, when `RESET` is chosen for operational status, bounces the port (DOWN, wait 5 seconds, UP).
+
+Primary outcome:
+- The selected port(s) carry the operator-chosen description, status, and/or VLAN configuration, provisioned to the device.
+
+Utilization statement:
+- Use this workflow as a day-2 operations tool for targeted switch port changes when you know either the client identity or the device and port. It depends only on the device already being discovered and managed in Catalyst Center (Workflow 3.0) and is independent of the GitOps build chain.
+
+### 15.0 - Meraki Switch Port Modifier
+
+Workflow folder: [15.0-Cisco-Meraki-Switch-Port-Modifier](15.0-Cisco-Meraki-Switch-Port-Modifier/)
+
+Function:
+- Guides the operator through selecting a Meraki **organization**, **network**, and **switch**, verifies the device is cloud-managed via organization inventory, and lists its non-stack switch ports.
+- Is **port-type aware**: Access ports expose data VLAN, voice VLAN, and access policy (Open or a resolved custom named policy); Trunk ports expose native VLAN and allowed VLANs. Description and admin status (ENABLE/DISABLE) apply to both.
+- Resolves each selected port's `portId` and issues a Meraki Dashboard API `PUT /devices/{serial}/switch/ports/{portId}` per port, then returns a formatted results summary.
+
+Primary outcome:
+- The selected Meraki switch port(s) carry the operator-chosen description, status, VLAN, and (access ports) access policy configuration in the Meraki Dashboard.
+
+Utilization statement:
+- Use this workflow as a day-2 operations tool for Cisco Meraki cloud-managed switches. It requires a configured Meraki Dashboard API endpoint target and the device already claimed into the organization; it is independent of the Catalyst Center GitOps build chain.
+
 ---
 
 ## Input Data Sources
@@ -329,6 +363,8 @@ Use this path when you want explicit version control of the exact workflow artif
 - [10.0-Cisco-Catayst-Center-Paginated-Device-Inventory/](10.0-Cisco-Catayst-Center-Paginated-Device-Inventory/) — `CATC-PaginatedDeviceInventory.json`
 - [11.0-Cisco-Catalyst-Center-Paginated-Site-Hierarchy/](11.0-Cisco-Catalyst-Center-Paginated-Site-Hierarchy/) — `CATC-PaginatedSiteHierarchy.json`
 - [12.0-Cisco-Catalyst-Center-Bulk-Command-Runner/](12.0-Cisco-Catalyst-Center-Bulk-Command-Runner/) — `CATC-MultipleShowCommands.json` (consumed by 9.0)
+- [14.0-Cisco-Catalyst-Center-Switch-Port-Modifier/](14.0-Cisco-Catalyst-Center-Switch-Port-Modifier/) — `Modify CATC Switch Ports.json` (standalone day-2 tool)
+- [15.0-Cisco-Meraki-Switch-Port-Modifier/](15.0-Cisco-Meraki-Switch-Port-Modifier/) — `Modify Meraki Switch Ports.json` (standalone day-2 tool; requires a Meraki Dashboard API endpoint target)
 4. Verify each workflow appears with expected name and version.
 5. Run in the documented order in this README.
 
@@ -353,7 +389,7 @@ Recommended when:
 
 Post-install validation for either option:
 
-1. Confirm all twelve workflows are visible and enabled.
+1. Confirm all workflows (the twelve GitOps/utility workflows plus the two day-2 port modifiers, 14.0 and 15.0) are visible and enabled.
 2. Confirm runtime target, credentials, and required permissions are set.
 3. Execute a non-production test run using a limited target scope.
 4. Confirm task polling and terminal status behavior before production rollout.
@@ -366,7 +402,8 @@ If you are new to Cisco workflow automation, a free Meraki Dashboard environment
 
 Important:
 - Meraki Dashboard workflows are not to be confused with Catalyst Center workflows. They are not the same and do not interact.
-- This step is optional in the event you already have a Meraki account and is required to run workflows 1.0 through 12.0 in this folder.
+- This step is optional for the Catalyst Center workflows (1.0 through 12.0 and 14.0), which do not use the Meraki Dashboard.
+- A Meraki Dashboard account with API access is **required** to run Workflow 15.0 (Meraki Switch Port Modifier), which operates entirely against the Meraki Dashboard API. Configure the resulting API key as the workflow's `meraki.endpoint` target.
 
 ### Create a free Meraki Dashboard account
 
@@ -439,15 +476,21 @@ Workflows 1.0 through 7.0 are designed to run in strict order to build and deplo
 
 9.1 Site Based Upgrade with AI (on-demand)
   -> same dependencies as 9.0 plus the Anthropic-AI GenAI endpoint and ANTHROPIC-KEY credential for post-upgrade validation
+
+14.0 Catalyst Center Switch Port Modifier (on-demand, standalone)
+  -> requires a discovered, managed switch in Catalyst Center (3.0); independent of the GitOps build chain
+
+15.0 Meraki Switch Port Modifier (on-demand, standalone)
+  -> requires a Meraki Dashboard API endpoint target and the switch claimed into the Meraki organization; independent of the Catalyst Center GitOps build chain
 ```
 
-Recommended rollback/deletion order for workflows 1.0 through 7.0 is reverse execution order to preserve dependency integrity. Workflows 8.0 through 12.0 are read/operations workflows and do not require rollback.
+Recommended rollback/deletion order for workflows 1.0 through 7.0 is reverse execution order to preserve dependency integrity. Workflows 8.0 through 12.0 are read/operations workflows and do not require rollback. Workflows 14.0 and 15.0 are standalone day-2 operations tools that make targeted, operator-confirmed port changes; they have no build-chain dependencies and are not part of the rollback sequence.
 
 ---
 
 ## Appendix — Workflow and API Reference
 
-This appendix provides a complete technical reference for all workflows, embedded subworkflows, and Catalyst Center and GitHub API endpoints used across the twelve workflow definition files in this suite (the seven `-v3.json` GitOps workflows in folders 1.0–7.0 plus the five operational and utility workflows in folders 8.0–12.0).
+This appendix provides a complete technical reference for all workflows, embedded subworkflows, and Catalyst Center, Meraki, and GitHub API endpoints used across the workflow definition files in this suite (the seven `-v3.json` GitOps workflows in folders 1.0–7.0, the five operational and utility workflows in folders 8.0–12.0, and the two standalone day-2 switch port modifiers in folders 14.0 and 15.0).
 
 ---
 
@@ -468,6 +511,8 @@ This appendix provides a complete technical reference for all workflows, embedde
 | 10 | `CATC-PaginatedDeviceInventory` | `CATC-PaginatedDeviceInventory.json` | Counts devices, paginates the Network Device API, and returns the full (optionally filtered) inventory |
 | 11 | `CATC-PaginatedSiteHierarchy` | `CATC-PaginatedSiteHierarchy.json` | Counts sites, paginates the Site API alongside the Network Device API, and returns the full hierarchy plus name and UUID lists |
 | 12 | `CATC-MultipleShowCommands-v3` | `CATC-MultipleShowCommands.json` | Iterates the shared Device SWIM Inventory table, batches show commands in groups of five, runs each batch per device through `CATC-CommandRunner`, and writes consolidated output to the `precheck` or `postcheck` column |
+| 14 | `Modify CATC Switch Ports` | `Modify CATC Switch Ports.json` | Prompt-driven day-2 tool that resolves a switch port by client MAC or device/port, assembles an interface `PUT` body, deploys description/status/VLAN changes, and optionally bounces the port on RESET |
+| 15 | `Modify Meraki Switch Ports` | `Modify Meraki Switch Ports.json` | Prompt-driven day-2 tool that selects a Meraki org/network/switch, verifies cloud management, and updates description/status/VLANs/access-policy per selected port via the Meraki Dashboard API |
 
 ---
 
@@ -502,8 +547,15 @@ Shared across all seven workflows.
 | `CATC-DeviceInventory-v2` | Retrieves a single page of the device inventory using `offset`/`limit` (continues on failure) | 10.0 PaginatedDeviceInventory, 11.0 PaginatedSiteHierarchy |
 | `CATC-PaginatedDeviceInventory` | Counts devices and paginates the Network Device API to return the full, optionally filtered inventory | 9.0 Site Based Upgrade (subworkflow call) |
 | `CATC-GetHierarchy-v2` | Retrieves a single page of the site hierarchy using `offset`/`limit` | 11.0 PaginatedSiteHierarchy |
-| `CATC-DynamicSiteSelector` | Presents the Catalyst Center site hierarchy and returns the selected site plus the full hierarchy JSON | 9.0 Site Based Upgrade |
+| `CATC-DynamicSiteSelector` | Presents the Catalyst Center site hierarchy and returns the selected site plus the full hierarchy JSON | 9.0 Site Based Upgrade, 14.0 Switch Port Modifier (via `Choose CATC Hierarchy`) |
 | `CATC-MultipleShowCommands` | Captures diagnostic show command output for each target device into a shared SWIM inventory table (now packaged as standalone Workflow 12.0) | 9.0 Site Based Upgrade (subworkflow call to 12.0) |
+| `CATC-PaginatedDeviceInventory` (via `Choose CATC Switch`) | Paginates the device inventory to present a switch selection list | 14.0 Switch Port Modifier |
+| `Choose CATC Hierarchy` | Wraps `CATC-DynamicSiteSelector` to let the operator pick a site before resolving a client or device | 14.0 Switch Port Modifier |
+| `Choose CATC Switch` | Wraps paginated device inventory to let the operator pick a switch and resolve its UUID | 14.0 Switch Port Modifier |
+| `Array Append` / `Append Port UUIDs` | Array helper subworkflows used to accumulate resolved client ports and interface UUIDs | 14.0 Switch Port Modifier |
+| `Meraki Choose Organization` | Presents Meraki organizations and returns the selected organization ID | 15.0 Meraki Switch Port Modifier |
+| `Meraki Choose Network` | Presents Meraki networks for the selected organization and returns the network ID | 15.0 Meraki Switch Port Modifier |
+| `Meraki Choose Device` | Presents Meraki devices for the selected network and returns the device serial | 15.0 Meraki Switch Port Modifier |
 
 #### Utility Subworkflows (SecureX/XDR Catalog)
 
@@ -515,6 +567,20 @@ Referenced by name from the Cisco workflow platform catalog.
 | `Catalyst Center - Poll Execution Status by ID` | Polls bulk execution status for site-creation operations |
 | `Get Task ID` | Extracts the asynchronous `taskId` from a Catalyst Center API response for downstream polling |
 | `String to Array` | Normalizes a free-form string (comma-, newline-, or list-literal-delimited) into a JSON array of values |
+| `JSON String Array to Delimited String` | Converts a multiselect string array into a delimited string (used for the `Operations` variable in 14.0 and 15.0) |
+| `Cisco Catalyst Center - Retrieves the List of Clients` | Returns client enrichment detail used to resolve a client's access switch and port |
+
+#### Meraki Dashboard Atomic Workflows
+
+Bundled inline within Workflow 15.0; each wraps a Meraki Dashboard API call.
+
+| Atomic Workflow | Purpose |
+|---|---|
+| `Meraki - Get Device` | Retrieves device detail for the selected serial |
+| `Meraki - Get Organization Inventory Device` | Confirms the device in organization inventory / verifies cloud management mode |
+| `Meraki - Get Device Switch Ports` | Lists the switch ports for the device |
+| `Meraki - Get Network Switch Access Policies` | Lists the network's switch access policies (custom access-policy branch) |
+| `Meraki - Update Device Switch Port` | Updates a single switch port with the assembled field set |
 
 ---
 
@@ -632,3 +698,21 @@ Referenced by name from the Cisco workflow platform catalog.
 | Method | Endpoint | Purpose |
 |---|---|---|
 | `POST` | `https://api.anthropic.com/v1/messages` | Submit the pre/post-check device table to the `claude-opus-4-7` model and return the audit-ready validation report |
+
+#### Catalyst Center — Interface and Client (14.0)
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| `GET` | `/dna/data/api/v1/interfaces?networkDeviceId={switchUuid}` | List interfaces for the selected network device (device source branch) |
+| `GET` | `/dna/intent/api/v1/interface/network-device/{switchUuid}` | Retrieve interface details for the device to resolve interface UUIDs |
+| `PUT` | `/dna/intent/api/v1/interface/{interfaceUuid}?deploymentMode=Deploy` | Apply and deploy the assembled port modification (description/status/VLAN); also used for the DOWN/UP bounce on RESET |
+
+#### Meraki Dashboard API (15.0)
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| `GET` | `/devices/{serial}` | Retrieve device detail for the selected switch |
+| `GET` | `/organizations/{organizationId}/inventory/devices/{serial}` | Verify the device in organization inventory / cloud management mode |
+| `GET` | `/devices/{serial}/switch/ports` | List the switch ports available to modify (stack ports excluded in parsing) |
+| `GET` | `/networks/{networkId}/switch/accessPolicies` | List network switch access policies (custom access-policy branch) |
+| `PUT` | `/devices/{serial}/switch/ports/{portId}` | Update a selected switch port (description, enabled, type, VLANs, access policy) |

@@ -1,0 +1,145 @@
+flowchart TD
+    START([Start]) --> A
+
+    A["Step 1 - Port Type Modification Prompt
+    Select Port Type: Access | Trunk
+    -> Input - Port Type"] --> B{Port Type<br/>== ?}
+
+    B -->|Access| OP_A
+    B -->|Trunk| OP_T
+
+    subgraph STEP1B["Step 1b - Operation Selection (per port type)"]
+        direction TB
+        OP_A["Operation Prompt (Access, multiselect)
+        Change Description | Change Operational Status
+        Change VLANs | Change Access Policy"] --> OP_A2
+        OP_A2["Operation Array to Delimited String (atomic)
+        Set Operations -> Operations
+        Input - Port Type = access"]
+
+        OP_T["Operation Prompt (Trunk, multiselect)
+        Change Description | Change Operational Status
+        Change VLANs"] --> OP_T2
+        OP_T2["Operation Array to Delimited String (atomic)
+        Set Operations -> Operations
+        Input - Port Type = trunk
+        accessPolicyType = Open"]
+    end
+
+    OP_A2 --> C
+    OP_T2 --> C
+
+    subgraph STEP2["Step 2 - Select Org / Network / Device"]
+        direction TB
+        C["Meraki Choose Organization (subworkflow)"] --> C2
+        C2["Meraki Choose Network (subworkflow)"] --> C3
+        C3["Meraki Choose Device (subworkflow)
+        -> device serial"] --> C4
+        C4["Get Device (atomic)
+        Meraki - Get Device"] --> C5
+        C5["Meraki - Get Organization Inventory Device (atomic)
+        Verify cloud management mode"]
+    end
+
+    C5 --> D
+
+    D["Step 3 - Meraki - Get Device Switch Ports (atomic)
+    Parse Switch Ports (JSONPath)
+    Exclude StackPort1/1, StackPort1/2, null
+    Set Switch Ports -> portNameArray"] --> E
+
+    E["Step 4 - Choose Ports Prompt
+    Multiselect ports -> Input - Selected Ports"] --> OPS
+
+    OPS[["Step 5 - Operations Group (build update inputs)"]] --> G_DESC
+
+    subgraph STEP5["Step 5 - Conditional Field Capture"]
+        direction TB
+        G_DESC{Operations has<br/>Change Description?}
+        G_DESC -->|Yes| G_DESC_Y["Description Entry Prompt
+        Set Description -> Input - Description"]
+        G_DESC -->|No| G_ADMIN
+        G_DESC_Y --> G_ADMIN
+
+        G_ADMIN{Operations has<br/>Change Operational Status?}
+        G_ADMIN -->|Yes| G_ADMIN_P["Status Selection Prompt
+        ENABLE | DISABLE"]
+        G_ADMIN -->|No| G_VLAN
+        G_ADMIN_P --> G_ADMIN_S{Admin<br/>Status?}
+        G_ADMIN_S -->|ENABLE| G_ADMIN_E["Input - Admin Status = true"]
+        G_ADMIN_S -->|DISABLE| G_ADMIN_D["Input - Admin Status = false"]
+        G_ADMIN_S -->|RESET TBD| G_ADMIN_E
+        G_ADMIN_E --> G_VLAN
+        G_ADMIN_D --> G_VLAN
+
+        G_VLAN{Operations has<br/>Change VLANs?}
+        G_VLAN -->|Yes| G_VLAN_PT{Port Type?}
+        G_VLAN -->|No| G_POL
+        G_VLAN_PT -->|Access| G_VLAN_A["VLAN Decision Prompt (Data | Voice)
+        Set VLAN Operations"]
+        G_VLAN_PT -->|Trunk| G_VLAN_T["VLAN Decision Prompt
+        Native VLANs | Allowed VLANs
+        Set VLAN Operations"]
+        G_VLAN_A --> G_DATA
+        G_VLAN_T --> G_DATA
+
+        G_DATA{Data /<br/>Native VLAN<br/>selected?}
+        G_DATA -->|Yes| G_DATA_Y["Data VLAN Entry Prompt
+        Set Data VLAN -> Input - DATA VLAN"]
+        G_DATA -->|No| G_VOICE
+        G_DATA_Y --> G_VOICE
+
+        G_VOICE{Voice VLAN<br/>selected?}
+        G_VOICE -->|Yes| G_VOICE_Y["Voice VLAN Entry Prompt
+        Set Voice VLAN -> Input - VOICE VLAN"]
+        G_VOICE -->|No| G_ALLOW
+        G_VOICE_Y --> G_ALLOW
+
+        G_ALLOW{Allowed VLAN<br/>selected?}
+        G_ALLOW -->|Yes| G_ALLOW_Y["Allowed VLAN Entry Prompt
+        Set Allowed VLAN -> Input - Allowed VLANs"]
+        G_ALLOW -->|No| G_POL
+        G_ALLOW_Y --> G_POL
+
+        G_POL{Operations has<br/>Change Access Policy?<br/>Access only}
+        G_POL -->|Yes| G_POL_P["Access Policy Prompt
+        Open | Custom access policy"]
+        G_POL -->|No| G_DONE
+        G_POL_P --> G_POL_T{Policy<br/>Type?}
+        G_POL_T -->|Open| G_POL_O["Set Access Policy -> Open"]
+        G_POL_T -->|Custom| G_POL_C["Meraki - Get Network Switch Access Policies
+        Parse Access Policy Names -> policyNameArray
+        Select Access Policy Prompt
+        Parse Access Policy Number
+        Set Access Policy -> number + type"]
+        G_POL_O --> G_DONE
+        G_POL_C --> G_DONE
+        G_DONE["Field capture complete"]
+    end
+
+    G_DONE --> IMPL
+
+    subgraph STEP6["Step 6 - Apply Updates (loop per port)"]
+        direction TB
+        IMPL(["For Each Port in Selected Ports"]) --> I2
+        I2["Parse Port Id (JSONPath)
+        Match interface.name -> portId"] --> I3
+        I3["Meraki - Update Device Switch Port (atomic)
+        serial + portId + captured fields:
+        description, enabled, type,
+        vlan, voiceVlan, allowedVlans,
+        accessPolicyType, accessPolicyNumber"] --> IMPL
+    end
+
+    IMPL --> RESULT{All ports<br/>updated OK?}
+    RESULT -->|No| FAIL_A([Fail: port update<br/>returned error])
+    RESULT -->|Yes| N
+
+    N["Step 7 - Format Results (python3)
+    Build success message
+    Set Output Results
+    -> Output - Update Results / Status"] --> DONE([Done])
+
+    style FAIL_A fill:#c0392b,color:#fff,stroke:#922b21
+    style DONE fill:#27ae60,color:#fff,stroke:#1e8449
+    style START fill:#2980b9,color:#fff,stroke:#1a5276

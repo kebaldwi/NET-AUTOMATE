@@ -18,6 +18,7 @@ The **CODE** is also offered in **[Latest Release Candidates](https://github.com
 
 | Folder | Purpose |
 |--------|---------|
+| [AI](https://github.com/kebaldwi/DNAC-TEMPLATES/tree/master/CODE/AI/)                 | Model Context Protocol (MCP) network tools — a Netmiko-based MCP server and client exposing read-only device commands to AI agents |
 | [ANSIBLE](https://github.com/kebaldwi/DNAC-TEMPLATES/tree/master/CODE/ANSIBLE/)       | End-to-end Cisco Catalyst Center Ansible automation suite (10 ordered playbooks + bootstrap installer) |
 | [BRUNO](https://github.com/kebaldwi/DNAC-TEMPLATES/tree/master/CODE/BRUNO/)           | Bruno API client collections for Catalyst Center labs |
 | [DATA](https://github.com/kebaldwi/DNAC-TEMPLATES/tree/master/CODE/DATA/)             | Source-of-truth data files (CSV, JSON, YAML) consumed by automations |
@@ -31,6 +32,21 @@ The **CODE** is also offered in **[Latest Release Candidates](https://github.com
 | [TEMPLATES](https://github.com/kebaldwi/DNAC-TEMPLATES/tree/master/CODE/TEMPLATES/)   | Jinja2 and Velocity template library (raw `.j2` / `.vm` plus CatC import JSON) |
 | [TRAFFIC](https://github.com/kebaldwi/DNAC-TEMPLATES/tree/master/CODE/TRAFFIC/)       | Traffic log sample data |
 | [WORKFLOWS](https://github.com/kebaldwi/DNAC-TEMPLATES/tree/master/CODE/WORKFLOWS/)   | Catalyst Center Workflow Automation (CCWA) bundles — original CATC library and the v3 GitOps suite |
+
+---
+
+### [AI](https://github.com/kebaldwi/DNAC-TEMPLATES/tree/master/CODE/AI/)
+
+Model Context Protocol (MCP) network tooling. A [FastMCP](https://github.com/jlowin/fastmcp) server exposes read-only [Netmiko](https://github.com/ktbyers/netmiko) device operations as MCP tools so AI agents can query live network devices, with a sample stdio client that drives them.
+
+| Item | Description |
+|------|-------------|
+| [network_mcp_server.py](https://github.com/kebaldwi/DNAC-TEMPLATES/blob/master/CODE/AI/network_mcp_server.py) | FastMCP server — exposes Netmiko tools (`show version`, `show ip interface brief`, reachability check, route table) over MCP |
+| [network_mcp_client.py](https://github.com/kebaldwi/DNAC-TEMPLATES/blob/master/CODE/AI/network_mcp_client.py) | Sample MCP stdio client — launches the server, lists tools, and invokes them against a target device |
+| `env.txt` | Example environment file (`NET_USERNAME` / `NET_PASSWORD`) — copy to `.env` and supply real device credentials |
+
+> [!NOTE]
+> Device credentials are read from a local `.env` via `python-dotenv`. Do not commit real credentials — keep secrets out of version control and verify local credential files are excluded before committing. Use `env.txt` only as a template.
 
 ---
 
@@ -238,7 +254,7 @@ Catalyst Center Workflow Automation (CCWA) bundles. Two libraries:
 | Item | Description |
 |------|-------------|
 | [CATC](https://github.com/kebaldwi/DNAC-TEMPLATES/tree/master/CODE/WORKFLOWS/CATC/)         | Original `CATC-*` building-block workflows (hierarchy, settings, discovery, templates, port-config, command runner, inventory, get-hierarchy, brown-field onboarding v2/v3) and the v1 `GitOps-*` build chain. See: [WORKFLOWS/CATC/README.md](https://github.com/kebaldwi/DNAC-TEMPLATES/blob/master/CODE/WORKFLOWS/CATC/README.md) |
-| [EXCHANGE](https://github.com/kebaldwi/DNAC-TEMPLATES/tree/master/CODE/WORKFLOWS/EXCHANGE/) | Recommended v3 suite — 12 ordered workflows (Site Hierarchy → Settings & Credentials → Discovery & Assign → Templates GitHub → Templates Composite → Network Profile → Provision Composite → Command Runner → Site Based Upgrade → Paginated Device Inventory → Paginated Site Hierarchy → Bulk Command Runner). See: [WORKFLOWS/EXCHANGE/README.md](https://github.com/kebaldwi/DNAC-TEMPLATES/blob/master/CODE/WORKFLOWS/EXCHANGE/README.md) |
+| [EXCHANGE](https://github.com/kebaldwi/DNAC-TEMPLATES/tree/master/CODE/WORKFLOWS/EXCHANGE/) | Recommended v3 suite — 12 ordered workflows (Site Hierarchy → Settings & Credentials → Discovery & Assign → Templates GitHub → Templates Composite → Network Profile → Provision Composite → Command Runner → Site Based Upgrade → Paginated Device Inventory → Paginated Site Hierarchy → Bulk Command Runner) plus two standalone day-2 port-modifier tools (Catalyst Center Switch Port Modifier, Meraki Switch Port Modifier). See: [WORKFLOWS/EXCHANGE/README.md](https://github.com/kebaldwi/DNAC-TEMPLATES/blob/master/CODE/WORKFLOWS/EXCHANGE/README.md) |
 
 ---
 

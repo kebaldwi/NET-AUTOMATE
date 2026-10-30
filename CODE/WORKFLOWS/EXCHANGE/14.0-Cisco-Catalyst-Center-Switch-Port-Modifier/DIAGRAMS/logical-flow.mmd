@@ -1,0 +1,146 @@
+flowchart TD
+    START([Start]) --> A
+
+    A["Step 1 - Operation Prompt
+    Multiselect: Change Description
+    Change Operational Status | Change VLANs
+    -> Operations variable"] --> B
+
+    B["Step 1b - JSON String Array to Delimited String
+    Atomic workflow
+    Normalize selected Operations to string
+    Set Operations"] --> C
+
+    C["Step 2 - Source Selection Prompt
+    Select SourceData:
+    Choose Client | Choose Network Device"] --> D{SourceData<br/>== ?}
+
+    D -->|Choose Client| SRC_CL
+    D -->|Choose Network Device| SRC_ND
+
+    subgraph STEP3A["Step 3a - Client Source Branch"]
+        direction TB
+        SRC_CL["Choose CATC Hierarchy (subworkflow)
+        -> siteHierarchy"] --> CL2
+        CL2["Retrieve List of Clients (atomic)
+        GET client enrichment detail"] --> CL3
+        CL3["Build Client List (python3)
+        Filter type == Wired with valid IPv4
+        Format: ip mac deviceType"] --> CL4
+        CL4["Set Client List -> ClientArray
+        Choose Client Prompt -> pick client"] --> CL5
+        CL5["Parse Client MAC Address (regex)
+        ([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}
+        Set Client MAC Address -> macAddress"] --> CL6
+        CL6["Extract Client Detail (JSONPath)
+        clientPort | mgmtIp | switchUuid
+        Array Append -> clientPorts"] --> CL7
+        CL7["Switch Detail Variables
+        clientPorts | accessSwitch
+        switchUuid | mgmtIp"]
+    end
+
+    subgraph STEP3B["Step 3b - Network Device Source Branch"]
+        direction TB
+        SRC_ND["Choose CATC Hierarchy (subworkflow)
+        -> siteHierarchy"] --> ND2
+        ND2["Choose CATC Switch (subworkflow)
+        Paginated device inventory -> switchUuid"] --> ND3
+        ND3["Generic Catalyst Center API Request
+        GET /dna/data/api/v1/interfaces
+        ?networkDeviceId={switchUuid}"] --> ND4
+        ND4["Parse Interface Names (JSONPath)
+        -> InterfaceNamesArray
+        Set Interface Names"] --> ND5
+        ND5["Choose Interfaces Prompt
+        Multiselect interfaces -> clientPorts"] --> ND6
+        ND6["Switch Detail Variables
+        deviceIp | clientPorts | switchUuid"]
+    end
+
+    CL7 --> PAR
+    ND6 --> PAR
+
+    PAR[["Step 4 - Operations (parallel block)"]] --> TBRANCH
+    PAR --> P_DESC
+
+    subgraph STEP4A["Step 4a - Targeting Branch"]
+        direction TB
+        TBRANCH["Get Interface Detail
+        GET /dna/intent/api/v1/interface/
+        network-device/{switchUuid}"] --> T2
+        T2(["For each port in clientPorts"]) --> T3
+        T3["Parse Port UUID (JSONPath)
+        Match portName -> interfaceUuid + status
+        Append Port UUIDs -> interfaceUuidArray
+        Set Port UUIDs"] --> T2
+    end
+
+    subgraph STEP4B["Step 4b - Parallel Branch (build Request Body)"]
+        direction TB
+        P_DESC{Operations has<br/>Change Description?}
+        P_DESC -->|Yes| P_DESC_Y["Description Entry Prompt
+        Set Port Description -> description
+        Modify Body: add description"]
+        P_DESC -->|No| P_ADMIN
+        P_DESC_Y --> P_ADMIN
+
+        P_ADMIN{Operations has<br/>Change Operational Status?}
+        P_ADMIN -->|Yes| P_ADMIN_Y["Status Selection Prompt
+        Set Admin Status -> adminStatus
+        Modify Body with/without leading comma"]
+        P_ADMIN -->|No| P_VLAN
+        P_ADMIN_Y --> P_VLAN
+
+        P_VLAN{Operations has<br/>Change VLANs?}
+        P_VLAN -->|Yes| P_VLAN_Y["VLAN Decision Prompt
+        Checkboxes: Data | Voice"]
+        P_VLAN -->|No| P_WRAP
+        P_VLAN_Y --> P_DATA
+
+        P_DATA{Data<br/>selected?}
+        P_DATA -->|Yes| P_DATA_Y["Data VLAN Entry Prompt
+        Set Data VLAN -> dataVlan
+        Modify Body: vlanId"]
+        P_DATA -->|No| P_VOICE
+        P_DATA_Y --> P_VOICE
+
+        P_VOICE{Voice<br/>selected?}
+        P_VOICE -->|Yes| P_VOICE_Y["Voice VLAN Entry Prompt
+        Set Voice VLAN -> voiceVlan
+        Modify Body: voiceVlanId"]
+        P_VOICE -->|No| P_WRAP
+        P_VOICE_Y --> P_WRAP
+
+        P_WRAP["Modify Body - wrap in braces
+        Finalize Request Body JSON"]
+    end
+
+    T3 --> JOIN{Both parallel<br/>branches<br/>complete?}
+    P_WRAP --> JOIN
+    JOIN -->|No - error| FAIL_A([Fail: targeting or<br/>body build error])
+    JOIN -->|Yes| IMPL
+
+    subgraph STEP5["Step 5 - Implementation"]
+        direction TB
+        IMPL(["For each interfaceUuid in interfaceUuidArray"]) --> I2
+        I2["Apply Port Modifications
+        PUT /dna/intent/api/v1/interface/
+        {interfaceUuid}?deploymentMode=Deploy
+        Body: Request Body"] --> I3
+        I3{adminStatus<br/>== RESET?}
+        I3 -->|No| IMPL
+        I3 -->|Yes| I4["Disable Port
+        PUT adminStatus DOWN"]
+        I4 --> I5["Wait - Sleep 5s
+        Allow port to shut down"]
+        I5 --> I6["Enable Port
+        PUT adminStatus UP"]
+        I6 --> IMPL
+    end
+
+    IMPL --> DONE([Done])
+
+    style FAIL_A fill:#c0392b,color:#fff,stroke:#922b21
+    style DONE fill:#27ae60,color:#fff,stroke:#1e8449
+    style START fill:#2980b9,color:#fff,stroke:#1a5276
